@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 
-def index(request):
-	return HttpResponse('Creado en un abrir y cerrar de ojos')
+def registro(request):
+	return render(request, 'registro_acceso/registro.html')
+
+def acceso(request):
+	return render(request, 'registro_acceso/acceso.html')
