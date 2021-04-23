@@ -22,12 +22,13 @@ class Categoria(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Agrupacion(models.Model):
+    choices = [('categoria1','Categoría1'), ('categoria2','Categoría2'),('categoria3','Categoría3')]
     nombre = models.CharField(max_length=150)
     rut = models.CharField(max_length=12)
     email = models.EmailField(max_length=100)
     descripcion = models.TextField(max_length=750)
     password = models.CharField(max_length=80)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='agrupacion_relacionada')
+    categoria = models.CharField(max_length=80, choices=choices)
     # region = models.ForeignKey(Region, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

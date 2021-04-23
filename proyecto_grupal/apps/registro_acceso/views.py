@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
+from apps.registro_acceso.forms import *
 
-def index(request):
-	return HttpResponse('Creado en un abrir y cerrar de ojos')
+def prueba(request):
+	return HttpResponse('para pruebas de formularios')
