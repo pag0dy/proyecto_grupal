@@ -6,15 +6,20 @@
 {% endblock %}
 
 {% block contenido %}
-<div class="row mt-3">
-    <div class="col-4 text-center">
-        <h1>Boon</h1>
-        <h3>Ayuda a ayudar</h3>
+    <div class="row my-5 d-flex flex-row-reverse">
+        <a href="/acceso" class="btn btn-dark btn-lg mr-3">Ingresa a tu cuenta</a>
+        <a href="/registro" class="btn btn-dark btn-lg mr-3">Registrate</a>
     </div>
-    <div class="col-8 text-right">
-        <a href="/acceso" class="btn btn-primary btn-lg mr-3">Ingresa a tu cuenta</a>
-        <a href="/registro" class="btn btn-primary btn-lg mr-3">Registrate</a>
-        <a href="/dashboard" class="btn btn-primary btn-lg">Explorar</a>
+    <div class="row d-flex flex-row my-5">
+        <div class="col">
+            <h1 class="main-font jumbo-font my-5">Boon</h1>
+            <h3 class="auxiliary-font title-font">Ayuda a ayudar</h3>
+        </div>
+        <div class="col">
+            <img class="side-img" src="static/master/img/noun_support.png" alt="support">
+        </div>
     </div>
-</div>
+    <div class="row mt-5 d-flex flex-row justify-content-center">
+        <a href="/dashboard"><img class="arrow-btn" src="static/master/img/noun_Arrow.png" alt="arrow"></a>
+    </div>
 {% endblock %}
