@@ -13,6 +13,7 @@
 .jumbo-font {
     font-size: 14vh;
     font-weight: bold;
+    text-shadow: 1px 1px 5px #563d7c;
 }
 
 .very-big-font {
@@ -35,6 +36,13 @@
     background-image: linear-gradient(145deg, rgba(114, 188, 231, 0.479) 0%,rgba(115, 119, 110, 0.425) 100%),linear-gradient(75deg, rgb(33, 138, 184),rgb(0, 241, 141));
 }
 
+.header-bg {
+    background-color: #17C3B2;
+    padding: 2vw;
+    border-radius: 1vw;
+    text-shadow: 1px 1px #474f50;
+}
+
 .bg-floral-white {
     background: #FEF9EF;
 }
@@ -47,8 +55,8 @@
     background:#17C3B2;
 }
 
-.bg-orange {
-    background: #FF8008;
+.bg-purple {
+    background: #563d7c;
 }
 
 .color-floral-white {
@@ -63,8 +71,28 @@
     color:#17C3B2;
 }
 
-.color-orange {
-    color: #FF8008;
+.color-purple {
+    color: #563d7c;
+}
+
+.btn-big-dark {
+      width:fit-content;
+      padding:1vw;
+      border-radius: 1vw;
+      font-size: 1.2vw;
+      color: #FEF9EF;
+      text-decoration: none;
+}
+
+.btn-big-dark:hover {
+    color: #3E4E50;
+    background-color:#17C3B2;
+    text-decoration: none;
+}
+
+aside {
+    display: inline-flex;
+    width: 10%
 }
 
 /* .row {
