@@ -50,15 +50,19 @@
     {% endblock %}
 </head>
 <body class="bg-light">
-    {% block encabezado %}
-    {% endblock %}
-    {% block menuVertical %}
-    {% endblock %}
-    
-    <main class="container">
-        {# Contenido master #}
-        {% block contenido %}
+    <div class="d-flex">
+        {% block encabezado %}
         {% endblock %}
-    </main>
+        {% block menuVertical %}
+        {% endblock %}
+        
+        <main class="container">
+            {# Contenido master #}
+            {% block contenido %}
+            {% endblock %}
+        </main>
+
+    </div>
+
 </body>
 </html>
