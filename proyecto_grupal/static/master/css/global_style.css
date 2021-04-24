@@ -1,3 +1,8 @@
+* {
+    padding:0;
+    margin:0;
+}
+
 .main-font {
     font-family: 'Comfortaa', cursive;
 }
@@ -37,9 +42,9 @@
 }
 
 .header-bg {
+    width: 100vw;
     background-color: #17C3B2;
     padding: 2vw;
-    border-radius: 1vw;
     text-shadow: 1px 1px #474f50;
 }
 
@@ -91,8 +96,14 @@
 }
 
 aside {
-    display: inline-flex;
-    width: 10%
+    height: 100vh;
+    background-color:#3E4E50;
+}
+
+.menu-img {
+    display:block;
+    width:5vw;
+    height:5vw;
 }
 
 /* .row {
