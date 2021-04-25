@@ -22,7 +22,7 @@ def registro(request):
 		context = {
 			'form' : RegistroUsuarios()
 		}		
-	return render(request, 'registro_acceso/registro.html', context)
+		return render(request, 'registro_acceso/registro.html', context)
 
 
 def acceso(request):
