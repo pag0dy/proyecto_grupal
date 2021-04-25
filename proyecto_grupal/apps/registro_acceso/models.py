@@ -1,9 +1,10 @@
 from django.db import models
 
 # class Region(models.Model):
-    # nombre = models.CharField(max_length=100)
-    # created_at = models.DateTimeField(auto_now_add=True)
-    # updated_at = models.DateTimeField(auto_now=True)
+# nombre = models.CharField(max_length=100)
+# created_at = models.DateTimeField(auto_now_add=True)
+# updated_at = models.DateTimeField(auto_now=True)
+
 
 class Usuario(models.Model):
     nombre = models.CharField(max_length=100)
@@ -15,14 +16,17 @@ class Usuario(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField(max_length=750)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
 class Agrupacion(models.Model):
-    choices = [('categoria1','Categoría1'), ('categoria2','Categoría2'),('categoria3','Categoría3')]
+    choices = [('categoria1', 'Categoría1'), ('categoria2',
+                                              'Categoría2'), ('categoria3', 'Categoría3')]
     nombre = models.CharField(max_length=150)
     rut = models.CharField(max_length=12)
     email = models.EmailField(max_length=100)

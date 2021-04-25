@@ -2,24 +2,24 @@
 {% load static %}
 
 {% block extraStyles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bienvenida_style.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/bienvenida_style.css' %}"/>
 {% endblock %}
 
 {% block contenido %}
-    <div class="row my-5 d-flex flex-row-reverse">
-        <a href="/acceso" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
-        <a href="/" class="btn-big-dark bg-purple mr-3">Volver</a>
-    </div>
-    <div class="row d-flex flex-row my-5">
-        <div class="col">
-            <h1 class="main-font jumbo-font my-5">Boon</h1>
-            <h3 class="auxiliary-font title-font">Ayuda a ayudar</h3>
-        </div>
-        <div class="col">
-            <img class="side-img" src="static/img/noun_giving_heart_green.png" alt="support">
-        </div>
-    </div>
-    <div class="row mt-5 d-flex flex-row justify-content-center">
-        <a href="/dashboard"><img class="arrow-btn" src="static/img/noun_Arrow_grey.png" alt="arrow"></a>
-    </div>
+<div class="row my-5 d-flex flex-row-reverse">
+<a href="/acceso" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
+<a href="/" class="btn-big-dark bg-purple mr-3">Volver</a>
+</div>
+<div class="row d-flex flex-row my-5">
+<div class="col">
+<h1 class="main-font jumbo-font my-5">Boon</h1>
+<h3 class="auxiliary-font title-font">Ayuda a ayudar</h3>
+</div>
+<div class="col">
+<img class="side-img" src="static/img/noun_giving_heart_green.png" alt="support">
+</div>
+</div>
+<div class="row mt-5 d-flex flex-row justify-content-center">
+<a href="/dashboard"><img class="arrow-btn" src="static/img/noun_Arrow_grey.png" alt="arrow"></a>
+</div>
 {% endblock %}
