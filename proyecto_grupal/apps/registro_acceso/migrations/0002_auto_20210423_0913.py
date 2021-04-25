@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='agrupacion',
             name='categoria',
-            field=models.CharField(choices=[('categoria1', 'Categoría1'), ('categoria2', 'Categoría2'), ('categoria3', 'Categoría3')], max_length=80),
+            field=models.CharField(choices=[('categoria1', 'Categoría1'), (
+                'categoria2', 'Categoría2'), ('categoria3', 'Categoría3')], max_length=80),
         ),
     ]

@@ -3,7 +3,8 @@ from django import forms
 import bcrypt
 import re
 
-#Formulario de registro usuarios 
+# Formulario de registro usuarios
+
 
 class RegistroUsuarios(forms.ModelForm):
     password_confirm = forms.CharField(
@@ -30,7 +31,7 @@ class RegistroUsuarios(forms.ModelForm):
             'password': forms.TextInput(attrs={'type': 'password'})
         }
 
-#Validaciones registro usuarios
+# Validaciones registro usuarios
 
     def clean_nombre(self):
         nombre = self.cleaned_data.get('nombre')
@@ -47,40 +48,40 @@ class RegistroUsuarios(forms.ModelForm):
         if not valid_names(apellido):
             raise forms.ValidationError(
                 'Ingresa un apellido válido'
-                )
+            )
         if len(apellido) < 3:
             raise forms.ValidationError(
                 'El apellido debe tener al menos 3 caracteres.'
             )
-        return apellido 
-    
+        return apellido
+
     def clean_rut(self):
         rut = self.cleaned_data.get('rut')
-        if not valid_rut(rut):            #Regex para formato 12345678-9
-            raise forms.ValidationError(         
+        if not valid_rut(rut):  # Regex para formato 12345678-9
+            raise forms.ValidationError(
                 'Ingresa un RUT válido.'
-                )
+            )
         if len(rut) < 10:
             raise forms.ValidationError(
                 'El rut debe tener 10 caracteres incluyendo el guión.'
             )
-        return rut 
+        return rut
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        user = Usuario.objects.filter(email = email)
+        user = Usuario.objects.filter(email=email)
         if not valid_email(email):
             raise forms.ValidationError(
                 'Ingresa un correo válido.'
-                )
+            )
         if user:
             raise forms.ValidationError(
                 'El correo ya está en uso.'
-                )
+            )
         if len(email) < 10:
             raise forms.ValidationError(
                 'El correo debe tener al menos 10 caracteres.'
-                )
+            )
         return email
 
     def clean(self):
@@ -91,20 +92,20 @@ class RegistroUsuarios(forms.ModelForm):
             raise forms.ValidationError(
                 {
                     'password': 'Las contraseñas no coinciden.'
-                    }
-                )
+                }
+            )
         if len(password) < 8:
             raise forms.ValidationError(
                 {
-                    'password':'La contraseña debe tener al menos 8 caracteres.'
-                    }
-                )
+                    'password': 'La contraseña debe tener al menos 8 caracteres.'
+                }
+            )
         if len(password_confirm) < 10:
             raise forms.ValidationError(
                 {
-                    'password':'La contraseña debe tener al menos 8 caracteres.'
-                    }
-                )
+                    'password': 'La contraseña debe tener al menos 8 caracteres.'
+                }
+            )
 
 
 # Formulario de ingreso usuarios
@@ -131,26 +132,26 @@ class IngresoUsuarios(forms.ModelForm):
         if not user:
             raise forms.ValidationError(
                 {
-                    'email':'Correo no registrado.'
-                    }
-                )
+                    'email': 'Correo no registrado.'
+                }
+            )
         if len(email) < 10:
             raise forms.ValidationError(
                 {
-                    'email':'El email debe tener al menos 10 caracteres.'
-                    }
-                )
+                    'email': 'El email debe tener al menos 10 caracteres.'
+                }
+            )
         user = user[0]
         if not bcrypt.checkpw(password.encode(), user.password.encode()):
             raise forms.ValidationError(
                 {
-                    'password':'Contraseña equivocada.'
-                    }
+                    'password': 'Contraseña equivocada.'
+                }
             )
         return cleaned_data
 
 
-#Formulario de registro agrupaciones 
+# Formulario de registro agrupaciones
 
 class RegistroAgrupaciones(forms.ModelForm):
     password_confirm = forms.CharField(
@@ -180,7 +181,7 @@ class RegistroAgrupaciones(forms.ModelForm):
         }
 
 
-#Validaciones registro agrupaciones
+# Validaciones registro agrupaciones
 
     def clean_nombre(self):
         nombre = self.cleaned_data.get('nombre')
@@ -192,34 +193,33 @@ class RegistroAgrupaciones(forms.ModelForm):
             )
         return nombre
 
-    
     def clean_rut(self):
         rut = self.cleaned_data.get('rut')
-        if not valid_rut(rut):            #Regex para formato 12345678-9
-            raise forms.ValidationError(         
+        if not valid_rut(rut):  # Regex para formato 12345678-9
+            raise forms.ValidationError(
                 'Ingresa un RUT válido.'
-                )
+            )
         if len(rut) < 10:
             raise forms.ValidationError(
                 'El rut debe tener 10 caracteres incluyendo el guión.'
             )
-        return rut 
+        return rut
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        user = Agrupacion.objects.filter(email = email)
+        user = Agrupacion.objects.filter(email=email)
         if not valid_email(email):
             raise forms.ValidationError(
                 'Ingresa un correo válido.'
-                )
+            )
         if user:
             raise forms.ValidationError(
                 'El correo ya está en uso.'
-                )
+            )
         if len(email) < 10:
             raise forms.ValidationError(
                 'El correo debe tener al menos 10 caracteres.'
-                )
+            )
         return email
 
     def clean(self):
@@ -230,21 +230,20 @@ class RegistroAgrupaciones(forms.ModelForm):
             raise forms.ValidationError(
                 {
                     'password': 'Las contraseñas no coinciden.'
-                    }
-                )
+                }
+            )
         if len(password) < 8:
             raise forms.ValidationError(
                 {
-                    'password':'La contraseña debe tener al menos 8 caracteres.'
-                    }
-                )
+                    'password': 'La contraseña debe tener al menos 8 caracteres.'
+                }
+            )
         if len(password_confirm) < 10:
             raise forms.ValidationError(
                 {
-                    'password':'La contraseña debe tener al menos 8 caracteres.'
-                    }
-                )
-
+                    'password': 'La contraseña debe tener al menos 8 caracteres.'
+                }
+            )
 
 
 # Formulario de ingreso agrupaciones
@@ -271,26 +270,26 @@ class IngresoAgrupaciones(forms.ModelForm):
         if not user:
             raise forms.ValidationError(
                 {
-                    'email':'Correo no registrado.'
-                    }
-                )
+                    'email': 'Correo no registrado.'
+                }
+            )
         if len(email) < 10:
             raise forms.ValidationError(
                 {
-                    'email':'El email debe tener al menos 10 caracteres.'
-                    }
-                )
+                    'email': 'El email debe tener al menos 10 caracteres.'
+                }
+            )
         user = user[0]
         if not bcrypt.checkpw(password.encode(), user.password.encode()):
             raise forms.ValidationError(
                 {
-                    'password':'Contraseña equivocada.'
-                    }
+                    'password': 'Contraseña equivocada.'
+                }
             )
         return cleaned_data
 
 
-#Funciones REGEX 
+# Funciones REGEX
 
 def valid_rut(rut):
     REGEX_RUT = re.compile(r'^(\d){7,8}-(\d|k|K)$')
