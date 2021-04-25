@@ -5,3 +5,4 @@ urlpatterns = [
 path('registro',  views.registro),
 path('acceso', views.acceso),
 ]
+

@@ -7,8 +7,8 @@
 
 {% block contenido %}
     <div class="row my-5 d-flex flex-row-reverse">
-        <a href="/acceso" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
-        <a href="/registro" class="btn-big-dark bg-purple mr-3">Registrate</a>
+        <a href="{% url 'acceso' %}" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
+        <a href="{% url 'registro' %}" class="btn-big-dark bg-purple mr-3">Registrate</a>
     </div>
     <div class="row d-flex flex-row my-5">
         <div class="col">
