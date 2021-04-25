@@ -7,19 +7,28 @@
 
 {% block contenido %}
 <div class="row my-5 d-flex flex-row-reverse">
-    <a href="/" class="btn-big-dark bg-purple mr-3">Volver</a>
-    <a href="/registro" class="btn-big-dark bg-purple mr-3">Registrate</a>
+    <a href="{% url 'index' %}" class="btn-big-dark bg-purple mr-3">Volver</a>
+    <a href="{% url 'registro' %}" class="btn-big-dark bg-purple mr-3">Registrate</a>
 </div>
 <div class="row d-flex flex-row my-5">
     <div class="col">
         <h1 class="main-font jumbo-font">Boon</h1>
         <h3 class="auxiliary-font title-font">Ayuda a ayudar</h3>
-        <img class="side-img" src="static/img/noun_giving_heart_green.png" alt="support">
+        <img class="side-img" src="static/img/Boon_logo_main.png" alt="support">
     </div>
     <div class="col">
         <div class="jumbotron">
             <h1 class="display-4">form acceso</h1>
-            <input class="btn-big-dark bg-purple mr-3" href="#" role="button" type="submit" value="Ingresar">
+            <form action="acceso" method="post"></form>
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    {{ form.password }}
+                </div>
+                <button class="btn-big-dark bg-purple mr-3" type="submit">Ingresar</button>          
+            </div>
         </div>
     </div>
 </div>
