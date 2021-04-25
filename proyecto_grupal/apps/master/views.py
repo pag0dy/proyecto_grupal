@@ -5,3 +5,6 @@ def index(request):
 
 def dashboard(request):
 	return render(request, 'master/explorar.html')
+
+def perfil(request):
+	return render(request, 'master/perfil.html')
