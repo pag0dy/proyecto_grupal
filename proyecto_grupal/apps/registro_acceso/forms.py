@@ -9,17 +9,11 @@ import re
 class RegistroUsuarios(forms.ModelForm):
     password_confirm = forms.CharField(
         max_length=255, label='Confirm Password')
-    password_confirm.widget = forms.TextInput(attrs={'type': 'password'})
+    password_confirm.widget = forms.TextInput(attrs={'type': 'password', 'placeholder': 'Confirmar Contraseña'})
 
     class Meta:
         model = Usuario
-        fields = [
-            'nombre',
-            'apellido',
-            'rut',
-            'email',
-            'password',
-        ]
+        fields = ['nombre', 'apellido', 'rut', 'email', 'password',]
         labels = {
             'nombre': 'Nombre',
             'apellido': 'Apellido',
@@ -28,7 +22,11 @@ class RegistroUsuarios(forms.ModelForm):
             'password': 'Contraseña',
         }
         widgets = {
-            'password': forms.TextInput(attrs={'type': 'password'})
+            'password': forms.TextInput(attrs={'type': 'password', 'placeholder': 'Contraseña'}),
+            'nombre': forms.TextInput(attrs={'placeholder': 'Nombre'}),
+            'apellido': forms.TextInput(attrs={'placeholder': 'Apellido'}),
+            'rut': forms.TextInput(attrs={'placeholder': 'RUT'}),
+            'email': forms.TextInput(attrs={'placeholder': 'Email'}),
         }
 
 # Validaciones registro usuarios
@@ -118,7 +116,8 @@ class IngresoUsuarios(forms.ModelForm):
             'password',
         ]
         widgets = {
-            'password': forms.TextInput(attrs={'type': 'password'})
+            'email': forms.TextInput(attrs={'type': 'email', 'placeholder': 'Email'}),
+            'password': forms.TextInput(attrs={'type': 'password', 'placeholder': 'Contraseña'})
         }
 
 
