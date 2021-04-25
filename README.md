@@ -1,8 +1,5 @@
 # proyecto_grupal Boon
 
-BlogIntegracion
-Un blog de integración de repaso de CodingDojo!
-
 Branches y commits
 Cada uno creará una branch (o más si lo requiere) para no correr riesgos de perder avances. Para esto debemos ingresar:
 
