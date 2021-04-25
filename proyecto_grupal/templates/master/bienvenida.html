@@ -7,8 +7,8 @@
 
 {% block contenido %}
     <div class="row my-5 d-flex flex-row-reverse">
-        <a href="/acceso" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
-        <a href="/registro" class="btn-big-dark bg-purple mr-3">Registrate</a>
+        <a href="{% url 'acceso' %}" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
+        <a href="{% url 'registro' %}" class="btn-big-dark bg-purple mr-3">Registrate</a>
     </div>
     <div class="row d-flex flex-row my-5">
         <div class="col">
@@ -16,7 +16,7 @@
             <h3 class="auxiliary-font title-font">Ayuda a ayudar</h3>
         </div>
         <div class="col">
-            <img class="side-img" src="static/master/img/noun_giving_heart_green.png" alt="support">
+            <img class="side-img" src="static/master/img/Boon_logo.png" alt="support">
         </div>
     </div>
     <div class="row mt-5 d-flex flex-row justify-content-center">
