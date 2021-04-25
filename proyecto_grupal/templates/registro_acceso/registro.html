@@ -7,19 +7,46 @@
 
 {% block contenido %}
 <div class="row my-5 d-flex flex-row-reverse">
-    <a href="/" class="btn-big-dark bg-purple mr-3">Volver</a>
-    <a href="/acceso" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
+    <a href="{% url 'index' %}" class="btn-big-dark bg-purple mr-3">Volver</a>
+    <a href="{% url 'acceso' %}" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
 </div>
 <div class="row d-flex flex-row my-5">
     <div class="col">
         <h1 class="main-font jumbo-font">Boon</h1>
         <h3 class="auxiliary-font title-font">Ayuda a ayudar</h3>
-        <img class="side-img" src="static/img/noun_giving_heart_green.png" alt="support">
+        <img class="side-img" src="static/img/Boon_logo_main.png" alt="support">
     </div>
     <div class="col">
         <div class="jumbotron">
             <h1 class="display-4">form registro</h1>
-            <input class="btn-big-dark bg-purple mr-3" href="#" role="button" type="submit" value="Registrarse">
+            <form action="{% url 'registro' %}" method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col">
+                        {{ form.nombre }}
+                    </div>
+                    <div class="form-group col">
+                        {{ form.apellido }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        {{ form.rut }}
+                    </div>
+                    <div class="form-group col">
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        {{ form.password }}
+                    </div>
+                    <div class="form-group col">
+                        {{ form.password_confirm }}
+                    </div>
+                </div>
+                <button class="btn-big-dark bg-purple mr-3" type="submit">Registrarse</button>
+            </form>
         </div>
     </div>
 </div>
