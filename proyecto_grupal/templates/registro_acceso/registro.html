@@ -4,7 +4,7 @@
 {% block extraStyles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/bienvenida_style.css' %}"/>
 {% endblock %}
-
+{% load crispy_forms_tags %}
 {% block contenido %}
 <div class="row my-5 d-flex flex-row-reverse">
     <a href="{% url 'index' %}" class="btn-big-dark bg-purple mr-3">Volver</a>
@@ -24,26 +24,26 @@
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="form-group col">
-                        {{ form.nombre }}
+                        {{ form.nombre|as_crispy_field  }}
                     </div>
                     <div class="form-group col">
-                        {{ form.apellido }}
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col">
-                        {{ form.rut }}
-                    </div>
-                    <div class="form-group col">
-                        {{ form.email }}
+                        {{ form.apellido|as_crispy_field  }}
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col">
-                        {{ form.password }}
+                        {{ form.rut|as_crispy_field  }}
                     </div>
                     <div class="form-group col">
-                        {{ form.password_confirm }}
+                        {{ form.email|as_crispy_field  }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        {{ form.password|as_crispy_field  }}
+                    </div>
+                    <div class="form-group col">
+                        {{ form.password_confirm|as_crispy_field  }}
                     </div>
                 </div>
                 <button class="btn-big-dark bg-purple mr-3" type="submit">Registrarse</button>
