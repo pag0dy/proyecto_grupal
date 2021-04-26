@@ -9,20 +9,21 @@ def registro(request):
 		form = RegistroUsuarios(request.POST)
 		if form.is_valid():
 				nuevo_usuario = form.save(commit=False)
-				password = form.clean_password()
-				if password:
-					pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-					nuevo_usuario.password = pw_hash
-					nuevo_usuario.save()
-					request.session['id'] = Usuario.objects.last().id
-					return redirect('/dashboard')
+				pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
+				nuevo_usuario.password = pw_hash
+				nuevo_usuario.save()
+				request.session['id'] = Usuario.objects.last().id
+				return redirect('/dashboard')
 		else:
-			return redirect('registro')
+			context = {
+				'form': form
+			}
+			return render(request, 'registro_acceso/registro.html', context)
 	else:
 		context = {
 			'form' : RegistroUsuarios()
 		}		
-	return render(request, 'registro_acceso/registro.html', context)
+		return render(request, 'registro_acceso/registro.html', context)
 
 
 def acceso(request):

@@ -4,22 +4,51 @@
 {% block extraStyles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/bienvenida_style.css' %}"/>
 {% endblock %}
-
+{% load crispy_forms_tags %}
 {% block contenido %}
 <div class="row my-5 d-flex flex-row-reverse">
-<a href="/acceso" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
-<a href="/" class="btn-big-dark bg-purple mr-3">Volver</a>
+    <a href="{% url 'index' %}" class="btn-big-dark bg-purple mr-3">Volver</a>
+    <a href="{% url 'acceso' %}" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
 </div>
 <div class="row d-flex flex-row my-5">
-<div class="col">
-<h1 class="main-font jumbo-font my-5">Boon</h1>
-<h3 class="auxiliary-font title-font">Ayuda a ayudar</h3>
-</div>
-<div class="col">
-<img class="side-img" src="static/img/noun_giving_heart_green.png" alt="support">
-</div>
-</div>
-<div class="row mt-5 d-flex flex-row justify-content-center">
-<a href="/dashboard"><img class="arrow-btn" src="static/img/noun_Arrow_grey.png" alt="arrow"></a>
+    <div class="col">
+        <h1 class="main-font jumbo-font">Boon</h1>
+        <h3 class="auxiliary-font title-font">Ayuda a ayudar</h3>
+        <img class="side-img" src="static/img/Boon_logo_main.png" alt="support">
+    </div>
+    <div class="col">
+        <div class="jumbotron">
+            <h1 class="display-4">¡Regístrate!</h1>
+            <hr class="my-4">
+            <form action="{% url 'registro' %}" method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col">
+                        {{ form.nombre|as_crispy_field  }}
+                    </div>
+                    <div class="form-group col">
+                        {{ form.apellido|as_crispy_field  }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        {{ form.rut|as_crispy_field  }}
+                    </div>
+                    <div class="form-group col">
+                        {{ form.email|as_crispy_field  }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        {{ form.password|as_crispy_field  }}
+                    </div>
+                    <div class="form-group col">
+                        {{ form.password_confirm|as_crispy_field  }}
+                    </div>
+                </div>
+                <button class="btn-big-dark bg-purple mr-3" type="submit">Registrarse</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
