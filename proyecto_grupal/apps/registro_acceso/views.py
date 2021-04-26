@@ -21,9 +21,13 @@ def registro(request):
 			return render(request, 'registro_acceso/registro.html', context)
 	else:
 		context = {
-			'form' : RegistroUsuarios()
+			'form' : RegistroUsuarios(),
+			'group_form': RegistroAgrupaciones(),
 		}		
 		return render(request, 'registro_acceso/registro.html', context)
+
+def registro_agrupacion(request, methdos=['POST']):
+	return HttpResponse('placeholder')
 
 
 def acceso(request):
