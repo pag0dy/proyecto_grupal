@@ -96,8 +96,16 @@
       color: #FEF9EF;
       text-decoration: none;
 }
+.btn-med-dark {
+    width:fit-content;
+    padding:1vw;
+    border-radius: 1vw;
+    font-size: 1vw;
+    color: #FEF9EF;
+    text-decoration: none;
+}
 
-.btn-big-dark:hover {
+.btn-big-dark:hover, .btn-med-dark:hover {
     color: #3E4E50;
     background-color:#17C3B2;
     text-decoration: none;
