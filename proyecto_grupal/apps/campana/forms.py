@@ -8,14 +8,12 @@ class FormularioCampana(forms.ModelForm):
             'titulo',
             'descripcion',
             'fecha_limite',
-            'agrupacion',
             'meta'
         ]
         labels = {
             'titulo': 'Titulo',
             'descripcion': 'Descripción',
             'fecha_limite': 'Fecha limite (Opcional)',
-            'agrupacion': 'Agrupación',
             'meta': 'Meta'
         }
         widgets = {
@@ -38,3 +36,13 @@ class FormularioCampana(forms.ModelForm):
                 )
             return descripcion
 
+
+class FormularioAporte(forms.ModelForm):
+    class Meta:
+        model = Aporte 
+        fields = [
+            'cantidad'
+        ]
+        labels = {
+            'cantidad': 'Cantidad a aportar'
+        }
