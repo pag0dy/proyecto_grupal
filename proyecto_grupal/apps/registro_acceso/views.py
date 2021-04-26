@@ -41,4 +41,9 @@ def acceso(request):
 
 	return render(request, 'registro_acceso/acceso.html', context)
 
+def logout(request):
+    logged_user = []
+    request.session.clear()
+    return redirect("/")
+
 
