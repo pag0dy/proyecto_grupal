@@ -5,3 +5,7 @@
 .side-img {
     width:20vw;
 }
+a:hover{
+    text-decoration: none;
+    color: #563d7c;
+}

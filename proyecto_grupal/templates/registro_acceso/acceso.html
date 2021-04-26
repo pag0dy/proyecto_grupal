@@ -19,7 +19,8 @@
     </div>
     <div class="col">
         <div class="jumbotron">
-            <h1 class="display-4">form acceso</h1>
+            <h1 class="display-4">Ingresa a tu cuenta</h1>
+            <hr class="my-4">
             <form action="acceso" method="post">
                 {% csrf_token %}
                 <div class="form-group">
@@ -28,11 +29,8 @@
                 <div class="form-group">
                     {{ form.password|as_crispy_field }}
                 </div>
-                <button class="btn-big-dark bg-purple mr-3" type="submit">Ingresar</button>   
-
-            </form>
-       
-            </div>
+                <button class="btn-big-dark bg-purple mr-3" type="submit">Ingresar</button>
+            </form>  
         </div>
     </div>
 </div>
