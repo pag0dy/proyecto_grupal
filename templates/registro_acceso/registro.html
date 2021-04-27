@@ -17,79 +17,77 @@
         <img class="side-img" src="static/img/Boon_logo_main.png" alt="support">
     </div>
     <div class="col">
-        <div class="jumbotron">
-            <h1 class="display-4">¡Regístrate!</h1>
-            <hr class="my-4">
-            <div class="d-inline-block">
-                <button  class="btn-med-dark bg-purple" id="toggle-btn">Agrupación</button>
-                <button  class="btn-med-dark bg-purple" id="toggle-btn2">Usuario</button>
-            </div>
-            <div class="d-inline">
-                <div class="position-fixed" id="toggle1" style="visibility: hidden;">
-                    <form action="{% url 'registro_agrupacion' %}" method="post">
-                        {% csrf_token %}
-                        <div class="form-row">
-                            <div class="form-group col">
-                                {{ group_form.nombre|as_crispy_field  }}
-                            </div>
-                            <div class="form-group col">
-                                {{ group_form.categoria|as_crispy_field  }}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col">
-                                {{ group_form.rut|as_crispy_field  }}
-                            </div>
-                            <div class="form-group col">
-                                {{ group_form.email|as_crispy_field  }}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col">
-                                {{ group_form.password|as_crispy_field  }}
-                            </div>
-                            <div class="form-group col">
-                                {{ group_form.password_confirm|as_crispy_field  }}
-                            </div> 
-                            <div class="form-group col">
-                                {{ group_form.descripcion|as_crispy_field  }}
-                            </div> 
-                        </div>
-                        <button class="btn-big-dark bg-purple mr-3" type="submit">Registrarse</button>                   
-                    </form>
-                </div>    
-                <div class="position-fixed" id="toggle2">
-                    <form action="{% url 'registro' %}" method="post"> 
-                        {% csrf_token %}
-                        <div class="form-row">
-                            <div class="form-group col">
-                                {{ form.nombre|as_crispy_field  }}
-                            </div>
-                            <div class="form-group col">
-                                {{ form.apellido|as_crispy_field  }}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col">
-                                {{ form.rut|as_crispy_field  }}
-                            </div>
-                            <div class="form-group col">
-                                {{ form.email|as_crispy_field  }}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col">
-                                {{ form.password|as_crispy_field  }}
-                            </div>
-                            <div class="form-group col">
-                                {{ form.password_confirm|as_crispy_field  }}
-                            </div>
-                        </div>
-                        <button class="btn-big-dark bg-purple mr-3" type="submit">Registrarse</button>
-                    </form>
-                </div>
-            </div>           
+        <h1 class="display-4">¡Regístrate!</h1>
+        <hr class="my-4">
+        <div class="d-inline-block">
+            <button  class="btn-med-dark bg-purple" id="toggle-btn">Agrupación</button>
+            <button  class="btn-med-dark bg-purple" id="toggle-btn2">Usuario</button>
         </div>
+        <div class="d-inline">
+            <div class="position-fixed" id="toggle1" style="visibility: hidden;">
+                <form action="{% url 'registro_agrupacion' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-4">
+                            {{ group_form.nombre|as_crispy_field  }}
+                        </div>
+                        <div class="form-group col-4">
+                            {{ group_form.categoria|as_crispy_field  }}
+                        </div>
+                        <div class="form-group col-4">
+                            {{ group_form.rut|as_crispy_field  }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            {{ group_form.descripcion|as_crispy_field  }}
+                        </div> 
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-4">
+                            {{ group_form.email|as_crispy_field  }}
+                        </div>
+                        <div class="form-group col-4">
+                            {{ group_form.password|as_crispy_field  }}
+                        </div>
+                        <div class="form-group col-4">
+                            {{ group_form.password_confirm|as_crispy_field  }}
+                        </div> 
+                    </div>
+                    <button class="btn-big-dark bg-purple mr-3" type="submit">Registrarse</button>                   
+                </form>
+            </div>    
+            <div class="position-fixed" id="toggle2">
+                <form action="{% url 'registro' %}" method="post"> 
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col">
+                            {{ form.nombre|as_crispy_field  }}
+                        </div>
+                        <div class="form-group col">
+                            {{ form.apellido|as_crispy_field  }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            {{ form.rut|as_crispy_field  }}
+                        </div>
+                        <div class="form-group col">
+                            {{ form.email|as_crispy_field  }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            {{ form.password|as_crispy_field  }}
+                        </div>
+                        <div class="form-group col">
+                            {{ form.password_confirm|as_crispy_field  }}
+                        </div>
+                    </div>
+                    <button class="btn-big-dark bg-purple mr-3" type="submit">Registrarse</button>
+                </form>
+            </div>
+        </div>           
     </div>
 </div>
 {% endblock %}
