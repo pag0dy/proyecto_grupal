@@ -28,17 +28,19 @@ def registro(request):
 
 def registro_agrupacion(request, methods=['POST']):
 	form = RegistroAgrupaciones(request.POST)
+	print(request.POST)
 	if form.is_valid():
 			nueva_agrupacion = form.save(commit=False)
 			pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
 			nueva_agrupacion.password = pw_hash
 			nueva_agrupacion.save()
 			request.session['idagrupacion'] = Agrupacion.objects.last().id
+			print(request.session['idagrupacion'])
 			return redirect('/dashboard')
 	else:
-		form = RegistroAgrupaciones()
 		context = {
-			'group_form': form
+			'group_form': form,
+			'form' : RegistroUsuarios(),
 		}
 		return render(request, 'registro_acceso/registro.html', context)
 
