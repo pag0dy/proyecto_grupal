@@ -177,6 +177,7 @@ class RegistroAgrupaciones(forms.ModelForm):
         }
         widgets = {
             'password': forms.TextInput(attrs={'type': 'password'}),
+            'descripcion': forms.TextInput(attrs={'cols':5,'rows':10})
         }
 
 
