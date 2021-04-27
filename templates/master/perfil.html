@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block encabezado %}
+{% endblock %}
+
+{% block menuVertical %}
+  {% include "menu.html" %}
+{% endblock %}
+
+{% block contenido %}
+<div class="col d-flex">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-9">
+            <div class="jumbotron mt-4">
+                <h1 class="main-font title-font">Nombre de la agrupación</h1>
+                <p class="secondary-font gen-font">Pequeño resumen de lo que hace la agrupación, cuantos años lleva activa, cuantos voluntarios o miembros tiene y qué metas tienen</p>
+                <hr class="my-4">
+                <h3 class="main-font sub-title-font">Necesitamos:</h3>
+                <ul class="secondary-font small-font ml-5">
+                    <li>Alimento para perro</li>
+                    <li>Alimento para gatos</li>
+                    <li>Antiparasitario</li>
+                    <li>Útiles de aseo</li>
+                </ul>
+                <h3 class="main-font sub-title-font">Campañas:</h3>
+                <ul class="secondary-font small-font ml-5">
+                    <li><a href="{% url 'campana' %}">Nombre campaña</a></li>
+                </ul>
+                <p class="secondary-font small-font">Si te interesa formar parte de nuestra agrupación o hacer alguna donación, contáctanos!</p>
+            </div>
+            <a class="btn-big-dark bg-purple my-5" href="#" role="button">Quiero ayudar!</a>
+        </div>
+        <div class="col">
+            <img class="perfil-img" src="../static/img/noun_Pet Allowed.png" alt="animalista">
+        </div>
+    </div>
+</div>
+{% endblock %}
