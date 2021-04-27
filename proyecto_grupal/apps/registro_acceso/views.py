@@ -36,10 +36,20 @@ def registro_agrupacion(request, methods=['POST']):
 			request.session['id'] = Agrupacion.objects.last().id
 			return redirect('/dashboard')
 	else:
+		form = RegistroAgrupaciones()
 		context = {
 			'group_form': form
 		}
 		return render(request, 'registro_acceso/registro.html', context)
+
+# def registro_agrupacion(request):
+# 	if request.method == 'POST':
+# 		form = RegistroAgrupaciones(request.POST)
+# 		if form.is_valid():
+# 			nueva_agrupacion = form.save(commit=False)
+#  			pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
+# 			nueva_agrupacion.password = pw_hash
+
 
 def acceso(request):
 	if request.method == 'POST':
