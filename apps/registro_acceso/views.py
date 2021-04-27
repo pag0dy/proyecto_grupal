@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-from apps.registro_acceso.forms import *
+from .forms import RegistroAgrupaciones, RegistroUsuarios, IngresoAgrupaciones, IngresoUsuarios
 from .models import Usuario, Categoria, Agrupacion
 import bcrypt
 
@@ -26,43 +26,29 @@ def registro(request):
 		}		
 		return render(request, 'registro_acceso/registro.html', context)
 
-def registro_agrupacion(request):
-	if request.method == 'POST':
-		form = RegistroAgrupciones(request.POST)
-		if form.is_valid():
-				nueva_agrupacion = form.save(commit=False)
-				pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
-				nueva_agrupacion.password = pw_hash
-				nueva_agrupacion.save()
-				request.session['id'] = Agrupacion.objects.last().id
-				return redirect('/dashboard')
-		else:
-			context = {
-				'form': form
-			}
-			return render(request, 'registro_acceso/registro.html', context)
+def registro_agrupacion(request, methods=['POST']):
+	form = RegistroAgrupaciones(request.POST)
+	if form.is_valid():
+			nueva_agrupacion = form.save(commit=False)
+			pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
+			nueva_agrupacion.password = pw_hash
+			nueva_agrupacion.save()
+			request.session['id'] = Agrupacion.objects.last().id
+			return redirect('/dashboard')
 	else:
+		form = RegistroAgrupaciones()
 		context = {
-			'form' : RegistroAgrupaciones()
-		}		
+			'group_form': form
+		}
 		return render(request, 'registro_acceso/registro.html', context)
 
-
-def acceso_agrupacion(request):
-	if request.method == 'POST':
-		form = IngresoAgrupaciones(request.POST)
-		if form.is_valid():
-			agrupacion = Agrupacion.objects.filter(email=request.POST['email'])
-			logged_agrupacion = agrupacion[0]
-			if bcrypt.checkpw(request.POST['password'].encode(), logged_agrupacion.password.encode()):
-				request.session['idagrupacion'] = logged_agrupacion.id
-				return redirect('/dashboard')
-	else:
-		context = {
-			'form' : IngresoAgrupaciones()
-		}
-
-	return render(request, 'registro_acceso/acceso.html', context)
+# def registro_agrupacion(request):
+# 	if request.method == 'POST':
+# 		form = RegistroAgrupaciones(request.POST)
+# 		if form.is_valid():
+# 			nueva_agrupacion = form.save(commit=False)
+#  			pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
+# 			nueva_agrupacion.password = pw_hash
 
 
 def acceso(request):
@@ -74,12 +60,19 @@ def acceso(request):
 			if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
 				request.session['id'] = logged_user.id
 				return redirect('/dashboard')
+		else:
+			context = {
+				'form' : form
+			}
+
+			return render(request, 'registro_acceso/acceso.html', context)
+		
 	else:
 		context = {
 			'form' : IngresoUsuarios()
 		}
 
-	return render(request, 'registro_acceso/acceso.html', context)
+		return render(request, 'registro_acceso/acceso.html', context)
 
 def logout(request):
     logged_user = []

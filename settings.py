@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.master',
     'apps.campana',
     'apps.registro_acceso',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
