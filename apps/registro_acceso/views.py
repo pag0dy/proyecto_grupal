@@ -33,7 +33,7 @@ def registro_agrupacion(request, methods=['POST']):
 			pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
 			nueva_agrupacion.password = pw_hash
 			nueva_agrupacion.save()
-			request.session['id'] = Agrupacion.objects.last().id
+			request.session['idagrupacion'] = Agrupacion.objects.last().id
 			return redirect('/dashboard')
 	else:
 		form = RegistroAgrupaciones()
@@ -70,6 +70,29 @@ def acceso(request):
 	else:
 		context = {
 			'form' : IngresoUsuarios()
+		}
+
+		return render(request, 'registro_acceso/acceso.html', context)
+
+def acceso_agrupacion(request):
+	if request.method == 'POST':
+		form = IngresoAgrupaciones(request.POST)
+		if form.is_valid():
+			agrupacion = Agrupacion.objects.filter(email=request.POST['email'])
+			logged_agrupacion = agrupacion[0]
+			if bcrypt.checkpw(request.POST['password'].encode(), logged_agrupacion.password.encode()):
+				request.session['idagrupacion'] = logged_agrupacion.id
+				return redirect('/dashboard')
+		else:
+			context = {
+				'form' : form
+			}
+
+			return render(request, 'registro_acceso/acceso.html', context)
+		
+	else:
+		context = {
+			'form' : IngresoAgrupaciones()
 		}
 
 		return render(request, 'registro_acceso/acceso.html', context)
