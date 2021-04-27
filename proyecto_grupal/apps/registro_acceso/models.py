@@ -25,8 +25,11 @@ class Categoria(models.Model):
 
 
 class Agrupacion(models.Model):
-    choices = [('categoria1', 'Categoría1'), ('categoria2',
-                                              'Categoría2'), ('categoria3', 'Categoría3')]
+    choices = [
+        ('1', 'Animalista'),
+        ('2','Adulto Mayor'),
+        ('3', 'Situación de Calle')
+        ]
     nombre = models.CharField(max_length=150)
     rut = models.CharField(max_length=12)
     email = models.EmailField(max_length=100)
