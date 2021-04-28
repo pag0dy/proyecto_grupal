@@ -110,6 +110,10 @@
     background-color:#17C3B2;
     text-decoration: none;
 }
+.btn-selected{
+    color: #3E4E50;
+    background-color:#17C3B2;
+}
 
 aside {
     height: 100vh;
