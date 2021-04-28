@@ -70,22 +70,24 @@ def campana(request, id):
 
 def agregar_campana(request):
 	if request.method == 'POST':
-		form = FormularioCampana(request.POST)
+		form = FormularioCampana(request.POST, request.FILES)
 		if form.is_valid():
 				nueva_campana = form.save(commit=False)
 				nueva_campana.agrupacion = Agrupacion.objects.get(id=request.session['idagrupacion'])
 				nueva_campana.save()
-				return redirect('/campana')
+				return redirect('/campana' + str(nueva_campana.id))
 		else:
 			context = {
-				'form': form
+				'campana_form': form,
+				'form': RegistroAgrupaciones()
 			}
-			return render(request, 'campana/registro.html', context)
+			return render(request, 'campana/panel-control.html', context)
 	else:
 		context = {
-			'form' : FormularioCampana(),
+			'campana_form' : FormularioCampana(),
+			'form': RegistroAgrupaciones()
 		}		
-		return render(request, 'campana/registro.html', context)
+		return render(request, 'campana/panel-control.html', context)
 
 def agregar_aporte(request, id):
 	print(id)
