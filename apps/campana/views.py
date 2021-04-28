@@ -4,7 +4,7 @@ from .forms import FormularioCampana, FormularioAporte
 from .models import Campana, Agrupacion, Aporte
 from ..registro_acceso.models import Agrupacion, Usuario
 import bcrypt
-from apps.registro_acceso.forms import RegistroAgrupaciones
+from apps.registro_acceso.forms import RegistroAgrupaciones, RegistroAgrupacionesEdit
 
 def filtro_campana(id_campana):
     activa = Campana.objects.filter(id=id_campana)
@@ -106,7 +106,7 @@ def agregar_aporte(request, id):
 
 def panel_control_agrupacion(request):
 	agrupacion = Agrupacion.objects.get(id=request.session['idagrupacion'])
-	form = RegistroAgrupaciones(instance=agrupacion)
+	form = RegistroAgrupacionesEdit(instance=agrupacion)
 	campana_form = FormularioCampana()
 	diff = {}
 	for meta in agrupacion.campana_activa.all():
@@ -137,3 +137,16 @@ def pago_aprobado(request):
 	aporte.aprobado = True
 	aporte.save()
 	return redirect('/panel_control_campana/' + str(campana.id))
+
+
+
+def editar(request, ids):
+	agrupacion = Agrupacion.objects.get(id=ids)
+	form = RegistroAgrupacionesEdit()
+	if form.is_valid():
+		agrupacion.nombre = request.POST['nombre']
+		agrupacion.email= request.POST['email']
+		agrupacion.descripcion= request.POST['descripcion']
+		agrupacion.necesitamos= request.POST['necesitamos']
+		agrupacion.save()
+	return redirect ('/panel_control_agrupacion')
