@@ -43,15 +43,15 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form action="{% url 'editar' ids=agrupacion.id %}">
           {% csrf_token %}
           <table>
             {{form|crispy}}
           </table>
-        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </form>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Cerrar
         </button>
