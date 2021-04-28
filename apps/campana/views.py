@@ -38,7 +38,7 @@ def filtro_usuario(id_usuario):
 
 def campana(request, id):
 	campana = filtro_campana(id)
-	porcentaje_recaudacion = campana.recaudacion / campana.meta
+	porcentaje_recaudacion = (campana.recaudacion / campana.meta) * 100
 	print(porcentaje_recaudacion)
 	agrup = campana.agrupacion.all()
 	if 'id' in request.session:

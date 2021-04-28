@@ -27,7 +27,13 @@
                 <p class="secondary-font small-font">Hemos recaudado:</p>
                 <p class="lead">{{ campana.recaudacion }}</p>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" aria-valuenow="{{ porcentaje }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
+                    {% if porcentaje > 0 %}
+                    
+                    style="width: {{porcentaje}}%"
+                    {% endif %}
+                    aria-valuenow="{{ porcentaje }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
                 </div>
             </div>
         </div>
