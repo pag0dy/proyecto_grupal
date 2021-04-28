@@ -29,13 +29,17 @@ class FormularioCampana(forms.ModelForm):
                 )
             return titulo
         
-    def clean_descripcion(self):
-        descripcion = self.cleanded_data.get('descripcion')
-        if len(descripcion) < 50:
-            raise forms.ValidationError(
-                'Por favor, detalla los aspectos generales de tu campaña.'
-                )
-            return descripcion
+    # def clean_descripcion(self):
+    #     descripcion = self.cleanded_data.get('descripcion')
+    #     if len(descripcion) < 50:
+    #         raise forms.ValidationError(
+    #             'Por favor, detalla los aspectos generales de tu campaña.'
+    #             )
+    #         return descripcion
+
+    def clean(self):
+        cleaned_data = super(FormularioCampana, self).clean()
+        return cleaned_data
 
 
 class FormularioAporte(forms.ModelForm):

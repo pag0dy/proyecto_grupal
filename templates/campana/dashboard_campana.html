@@ -39,7 +39,9 @@
         </div>
         <div class="col-2">
             <img class="perfil-img" src="/media/{{ campana.imagen }}" alt="{{ campana.nombre }}">
-            <button class="btn btn-info bg-purple my-5" id="toggle-btn">Quiero Ayudar!</button>
+            {% if usuario %}
+                <button class="btn btn-info bg-purple my-5" id="toggle-btn">Quiero Ayudar!</button>               
+            {% endif %}
             <div class="d-inline">
                 <div class="position-fixed" id="toggle1" style="visibility: hidden;">
                     <form action="{% url 'agregar_aporte' id=campana.id %}" method="post">
