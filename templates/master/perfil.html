@@ -17,17 +17,19 @@
                 <p class="secondary-font gen-font">{{ agrupacion.descripcion }}</p>
                 <hr class="my-4">
                 <h3 class="main-font sub-title-font">Necesitamos:</h3>
-                <ul class="secondary-font small-font ml-5">
+                <p class="secondary-font gen-font">{{ agrupacion.necesitamos }}</p>
+                <!-- <ul class="secondary-font small-font ml-5">
                     <li>Alimento para perro</li>
                     <li>Alimento para gatos</li>
                     <li>Antiparasitario</li>
                     <li>Útiles de aseo</li>
-                </ul>
+                </ul> -->
                 <h3 class="main-font sub-title-font">Campañas:</h3>
                 <ul class="secondary-font small-font ml-5">
                     <li><a href="{% url 'campana' %}">Nombre campaña</a></li>
                 </ul>
                 <p class="secondary-font small-font">Si te interesa formar parte de nuestra agrupación o hacer alguna donación, contáctanos!</p>
+                <a href="{{ agrupacion.contacto }}">{{ agrupacion.contacto }}</a>
             </div>
             <a class="btn-big-dark bg-purple my-5" href="#" role="button">Quiero ayudar!</a>
         </div>

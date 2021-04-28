@@ -36,6 +36,8 @@ class Agrupacion(models.Model):
     descripcion = models.TextField(max_length=750)
     password = models.CharField(max_length=80)
     categoria = models.CharField(max_length=80, choices=choices)
+    necesitamos = models.TextField(max_length=750, blank=True)
+    contacto = models.CharField(max_length=100, blank=True)
     # region = models.ForeignKey(Region, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

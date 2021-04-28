@@ -166,6 +166,8 @@ class RegistroAgrupaciones(forms.ModelForm):
             'categoria',
             'descripcion',
             'password',
+            'necesitamos',
+            'contacto'
         ]
         labels = {
             'nombre': 'Nombre',
@@ -174,10 +176,13 @@ class RegistroAgrupaciones(forms.ModelForm):
             'categoria': 'Categoría',
             'descripcion': 'Descripción',
             'password': 'Contraseña',
+            'necesitamos': 'Necesitamos',
+            'contacto': 'Contacto'
         }
         widgets = {
             'password': forms.TextInput(attrs={'type': 'password'}),
-            'descripcion': forms.TextInput(attrs={'cols':5,'rows':10})
+            'descripcion': forms.TextInput(attrs={'cols':5,'rows':10}),
+            'necesitamos': forms.TextInput(attrs={'cols':5,'rows':10})
         }
 
 
