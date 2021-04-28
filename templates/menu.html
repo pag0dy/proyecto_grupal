@@ -3,6 +3,15 @@
         <li class="nav-item">
             <a class="nav-link active" href="/"><img class="menu-img" src="/static/img/Boon_logo_heart.png" alt="support"></a>
         </li>
+        {% if request.session.id %}
+        <li class="nav-item">
+          <p class="lead">Hola, {{ usuario.nombre }}</p>
+        </li> 
+        {% elif request.session.idagrupacion %}   
+        <li class="nav-item">
+          <p class="lead">Hola, {{ agrupacion.nombre }}</p>
+        </li> 
+        {% endif %}       
         <li class="nav-item">
           <a class="nav-link active" href="{% url 'dashboard' %}">Inicio</a>
         </li>
@@ -14,9 +23,11 @@
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
+        </li>      
+        {% if request.session.id or request.session.idagrupacion %}
         <li class="nav-item">
-            <a href="/" class="nav-link btn-big-dark bg-purple btn-med">Volver</a>
-        </li>
+          <a href="{% url 'logout' %}" class="nav-link">Salir</a>
+        </li>     
+        {% endif %}
       </ul>
 </aside>

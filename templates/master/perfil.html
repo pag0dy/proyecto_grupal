@@ -13,8 +13,8 @@
     <div class="row justify-content-center align-items-center">
         <div class="col-9">
             <div class="jumbotron mt-4">
-                <h1 class="main-font title-font">Nombre de la agrupación</h1>
-                <p class="secondary-font gen-font">Pequeño resumen de lo que hace la agrupación, cuantos años lleva activa, cuantos voluntarios o miembros tiene y qué metas tienen</p>
+                <h1 class="main-font title-font">{{ agrupacion.nombre }}</h1>
+                <p class="secondary-font gen-font">{{ agrupacion.descripcion }}</p>
                 <hr class="my-4">
                 <h3 class="main-font sub-title-font">Necesitamos:</h3>
                 <ul class="secondary-font small-font ml-5">
@@ -32,7 +32,13 @@
             <a class="btn-big-dark bg-purple my-5" href="#" role="button">Quiero ayudar!</a>
         </div>
         <div class="col">
-            <img class="perfil-img" src="../static/img/noun_Pet Allowed.png" alt="animalista">
+            {% if agrupacion.categoria == '1' %}
+                <img class="perfil-img" src="../static/img/noun_Pet Allowed.png" alt="animalista">
+            {% elif agrupacion.categoria == '2' %}
+                <img class="perfil-img" src="../static/img/noun_Friend.png" alt="adultomayor">
+            {% elif agrupacion.categoria == '3' %}
+            <img class="perfil-img" src="../static/img/noun_Home.png" alt="situacioncalle">
+            {% endif %}         
         </div>
     </div>
 </div>

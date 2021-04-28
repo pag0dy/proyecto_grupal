@@ -4,6 +4,26 @@ from .forms import RegistroAgrupaciones, RegistroUsuarios, IngresoAgrupaciones, 
 from .models import Usuario, Categoria, Agrupacion
 import bcrypt
 
+def filtro_usuario(id_usuario):
+    activo = Usuario.objects.filter(id = id_usuario)
+    if activo:
+        usuario_activo = activo[0]
+        return usuario_activo
+    else:
+        mensaje = 'No se encontró el usuario'
+        print(mensaje)
+        return mensaje
+
+def filtro_agrupacion(id_agrupacion):
+    activo = Agrupacion.objects.filter(id = id_agrupacion)
+    if activo:
+        agrupacion_activa = activo[0]
+        return agrupacion_activa
+    else:
+        mensaje = 'No se encontró la agrupacion'
+        print(mensaje)
+        return mensaje
+
 def registro(request):
 	if request.method == 'POST':
 		form = RegistroUsuarios(request.POST)
@@ -16,7 +36,8 @@ def registro(request):
 				return redirect('/dashboard')
 		else:
 			context = {
-				'form': form
+				'form': form,
+				'group_form': RegistroAgrupaciones(),
 			}
 			return render(request, 'registro_acceso/registro.html', context)
 	else:
@@ -44,17 +65,10 @@ def registro_agrupacion(request, methods=['POST']):
 		}
 		return render(request, 'registro_acceso/registro.html', context)
 
-# def registro_agrupacion(request):
-# 	if request.method == 'POST':
-# 		form = RegistroAgrupaciones(request.POST)
-# 		if form.is_valid():
-# 			nueva_agrupacion = form.save(commit=False)
-#  			pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
-# 			nueva_agrupacion.password = pw_hash
-
 
 def acceso(request):
 	if request.method == 'POST':
+		print(request.POST)
 		form = IngresoUsuarios(request.POST)
 		if form.is_valid():
 			usuario = Usuario.objects.filter(email=request.POST['email'])
@@ -64,20 +78,23 @@ def acceso(request):
 				return redirect('/dashboard')
 		else:
 			context = {
-				'form' : form
+				'form' : form,
+				'group_form': IngresoAgrupaciones()
 			}
 
 			return render(request, 'registro_acceso/acceso.html', context)
 		
 	else:
 		context = {
-			'form' : IngresoUsuarios()
+			'form' : IngresoUsuarios(),
+			'group_form': IngresoAgrupaciones(),
 		}
 
 		return render(request, 'registro_acceso/acceso.html', context)
 
 def acceso_agrupacion(request):
 	if request.method == 'POST':
+		print(request.POST)
 		form = IngresoAgrupaciones(request.POST)
 		if form.is_valid():
 			agrupacion = Agrupacion.objects.filter(email=request.POST['email'])
@@ -87,14 +104,16 @@ def acceso_agrupacion(request):
 				return redirect('/dashboard')
 		else:
 			context = {
-				'form' : form
+				'group_form' : form,
+				'form' : IngresoUsuarios(),
 			}
 
 			return render(request, 'registro_acceso/acceso.html', context)
 		
 	else:
 		context = {
-			'form' : IngresoAgrupaciones()
+			'form' : IngresoAgrupaciones(),
+			'group_form': IngresoAgrupaciones(),
 		}
 
 		return render(request, 'registro_acceso/acceso.html', context)

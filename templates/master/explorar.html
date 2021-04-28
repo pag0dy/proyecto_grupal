@@ -53,35 +53,23 @@
     </div>
 </div>
 <div class="row justify-content-center">
-    <h1 class="main-font big-font my-5">Fundaciones Destacadas</h1>
+    <h1 class="main-font big-font my-5">Fundaciones agregadas recientemente:</h1>
 </div>
 <div class="row justify-content-center mb-3">
-    <div class="col">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Fundación ejemplo</h5>
-              <p class="card-text">Creada para probar los enlaces.</p>
-              <a href="{% url 'perfil' %}" class="btn btn-primary">Ver Perfil</a>
-            </div>
-          </div>
-    </div>
-    <div class="col">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-    </div>
-    <div class="col">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-    </div>
+  {% for agrupacion in agrupaciones %}
+  <div class="col">
+    <div class="card text-white bg-secondary" style="width: 18rem;">
+      <div class="card-header">
+        <p class="card-text">{{ agrupacion.get_categoria_display }}</p>
+      </div>
+        <div class="card-body">
+          <h5 class="card-title">{{  agrupacion.nombre }}</h5>
+          <p class="card-text">{{ agrupacion.descripcion }}</p>
+          <a href="{% url 'perfil' id=agrupacion.id %}" class="btn btn-info">Ver Perfil</a>
+        </div>
+      </div>
 </div>
+    
+  {% endfor %}
+    
 {% endblock %}

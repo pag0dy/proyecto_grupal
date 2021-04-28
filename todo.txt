@@ -1,0 +1,12 @@
+
+Pendientes:
+
+1.- Template panel de control agrupacion (Michel)
+2.- Template panel de control campaña (Michel)
+3.- Template de Crear Campaña y aporte (Agustín)
+4.- Agregar gestionar mi agrupacion en menú desplegable (Pauli)
+5.- Agregar categorías en menú desplegable (Pauli)
+6.- Lógica para conectar campaña y aporte (Marita)
+7.- Agregar campo texto "Necesitamos" a Agrupación (Pauli)
+8.- Agregar campo "Contacto" a Agrupación (Pauli)
+9.- Verificar que todo el flujo funcione (Todos)
