@@ -117,7 +117,7 @@ class IngresoUsuarios(forms.ModelForm):
         ]
         widgets = {
             'email': forms.TextInput(),
-            'password': forms.TextInput()
+            'password': forms.TextInput(attrs={'type': 'password'})
         }
 
 
@@ -165,7 +165,7 @@ class RegistroAgrupaciones(forms.ModelForm):
             'email',
             'categoria',
             'descripcion',
-            'password',
+            'group_password',
             'necesitamos',
             'contacto'
         ]
@@ -175,12 +175,12 @@ class RegistroAgrupaciones(forms.ModelForm):
             'email': 'Correo electrónico',
             'categoria': 'Categoría',
             'descripcion': 'Descripción',
-            'password': 'Contraseña',
+            'group_password': 'Contraseña',
             'necesitamos': 'Necesitamos',
             'contacto': 'Contacto'
         }
         widgets = {
-            'password': forms.TextInput(attrs={'type': 'password'}),
+            'group_password': forms.TextInput(attrs={'type': 'password'}),
             'descripcion': forms.TextInput(attrs={'cols':5,'rows':10}),
             'necesitamos': forms.TextInput(attrs={'cols':5,'rows':10})
         }
@@ -229,7 +229,7 @@ class RegistroAgrupaciones(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(RegistroAgrupaciones, self).clean()
-        password = cleaned_data.get('password')
+        password = cleaned_data.get('group_password')
         password_confirm = cleaned_data.get('password_confirm')
         if password != password_confirm:
             raise forms.ValidationError(
@@ -258,10 +258,13 @@ class IngresoAgrupaciones(forms.ModelForm):
         model = Agrupacion
         fields = [
             'email',
-            'password',
+            'group_password',
         ]
+        label = {
+            'group_password':'Contraseña'
+        }
         widgets = {
-            'password': forms.TextInput(attrs={'type': 'password'})
+            'group_password': forms.TextInput(attrs={'type': 'password'})
         }
 
 
@@ -270,7 +273,7 @@ class IngresoAgrupaciones(forms.ModelForm):
     def clean(self):
         cleaned_data = super(IngresoAgrupaciones, self).clean()
         email = cleaned_data.get('email')
-        password = cleaned_data.get('password')
+        password = cleaned_data.get('group_password')
         user = Agrupacion.objects.filter(email=email)
         if not user:
             raise forms.ValidationError(

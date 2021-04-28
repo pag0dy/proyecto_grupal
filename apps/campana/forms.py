@@ -8,7 +8,8 @@ class FormularioCampana(forms.ModelForm):
             'titulo',
             'descripcion',
             'fecha_limite',
-            'meta'
+            'meta',
+            'imagen'
         ]
         labels = {
             'titulo': 'Titulo',

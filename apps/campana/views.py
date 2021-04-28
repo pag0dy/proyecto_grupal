@@ -2,11 +2,63 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .forms import FormularioCampana, FormularioAporte
 from .models import Campana, Agrupacion, Aporte
+from ..registro_acceso.models import Agrupacion, Usuario
 import bcrypt
 from apps.registro_acceso.forms import RegistroAgrupaciones
 
-def campana(request):
-	return render(request, 'campana/dashboard_campana.html')
+def filtro_campana(id_campana):
+    activa = Campana.objects.filter(id=id_campana)
+    if activa:
+        campana_activa = activa[0]
+        return campana_activa
+    else:
+        mensaje = 'No se encontró la campana'
+        print(mensaje)
+        return mensaje
+
+def filtro_agrupacion(id_agrupacion):
+    activo = Agrupacion.objects.filter(id = id_agrupacion)
+    if activo:
+        agrupacion_activa = activo[0]
+        return agrupacion_activa
+    else:
+        mensaje = 'No se encontró la agrupacion'
+        print(mensaje)
+        return mensaje
+
+def filtro_usuario(id_usuario):
+    activo = Usuario.objects.filter(id=id_usuario)
+    if activo:
+        usuario_activo = activo[0]
+        return usuario_activo
+    else:
+        mensaje = 'No se encontró el usuario'
+        print(mensaje)
+        return mensaje
+
+def campana(request, id):
+	campana = filtro_campana(id)
+	agrup = campana.agrupacion.all()
+	if 'id' in request.session:
+		usuario = filtro_usuario(request.session['id'])
+		context = {
+			'campana':campana,
+			'usuario':usuario,
+			'agrup':agrup
+		}
+	elif 'idagrupacion' in request.session:
+		agrupacion = filtro_agrupacion(request.session['idagrupacion'])
+		context = {
+					'campana':campana,
+					'agrupacion':agrupacion,
+					'agrup':agrup
+				}
+	else: 
+		context = {
+					'campana':campana,
+					'agrup':agrup			
+		}
+	return render(request, 'campana/dashboard_campana.html', context)
 
 def agregar_campana(request):
 	if request.method == 'POST':

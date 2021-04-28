@@ -21,15 +21,15 @@
         <h1 class="display-4">Ingresa a tu cuenta</h1>
         <hr class="my-4">
         <div class="d-inline-block">
-            <button  class="btn-med-dark bg-purple" id="toggle-btn">Agrupación</button>
-            <button  class="btn-med-dark bg-purple" id="toggle-btn2">Usuario</button>
+            <button  class="btn-med-dark bg-purple" id="toggle-btn">Usuario</button>
+            <button  class="btn-med-dark bg-purple" id="toggle-btn2">Agrupación</button>
         </div>
         <div class="d-inline">
             <div class="position-fixed" id="toggle1" style="visibility: hidden;">
                 <form action="{% url 'acceso' %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
-                        {{ form.email|as_crispy_field }}
+                        {{ form.email|as_crispy_field  }}
                     </div>
                     <div class="form-group">
                         {{ form.password|as_crispy_field }}
@@ -44,7 +44,7 @@
                         {{ group_form.email|as_crispy_field }}
                     </div>
                     <div class="form-group">
-                        {{ group_form.password|as_crispy_field }}
+                        {{ group_form.group_password|as_crispy_field  }}
                     </div>
                     <button class="btn-big-dark bg-purple mr-3" type="submit">Ingresar</button>
                 </form> 
