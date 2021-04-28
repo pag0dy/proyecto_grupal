@@ -7,6 +7,4 @@ Pendientes:
 4.- Agregar gestionar mi agrupacion en menú desplegable (Pauli)
 5.- Agregar categorías en menú desplegable (Pauli)
 6.- Lógica para conectar campaña y aporte (Marita)
-7.- Agregar campo texto "Necesitamos" a Agrupación (Pauli)
-8.- Agregar campo "Contacto" a Agrupación (Pauli)
 9.- Verificar que todo el flujo funcione (Todos)
