@@ -7,3 +7,7 @@ Pendientes:
 4.- Agregar gestionar mi agrupacion en menú desplegable (Pauli)
 6.- Lógica para conectar campaña y aporte (Marita)
 9.- Verificar que todo el flujo funcione (Todos)
+
+ERRORES A CORREGIR:
+1.- No me deja ingresar a la plataforma con los datos de las fundaciones creadas
+
