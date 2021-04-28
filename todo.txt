@@ -4,7 +4,6 @@ Pendientes:
 1.- Template panel de control agrupacion (Michel) master/admin_agrupacion.html
 2.- Template panel de control campaña (Michel) campana/admin_campana.html
 3.- Template de Crear Campaña y aporte (Agustín) campana/nueva_campana.html
-4.- Agregar gestionar mi agrupacion en menú desplegable (Pauli)
 6.- Lógica para conectar campaña y aporte (Marita)
 9.- Verificar que todo el flujo funcione (Todos)
 
