@@ -58,8 +58,8 @@ def registro_agrupacion(request):
 	if form.is_valid():
 			nueva_agrupacion = form.save(commit=False)
 			pw_hash = bcrypt.hashpw(
-			    request.POST['password'].encode(), bcrypt.gensalt()).decode()
-			nueva_agrupacion.password = pw_hash
+			    request.POST['group_password'].encode(), bcrypt.gensalt()).decode()
+			nueva_agrupacion.group_password = pw_hash
 			nueva_agrupacion.save()
 			request.session['idagrupacion'] = Agrupacion.objects.last().id
 			print(request.session['idagrupacion'])

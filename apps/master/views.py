@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from ..registro_acceso.models import Agrupacion, Usuario
+from ..campana.models import Campana
 
 def filtro_usuario(id_usuario):
     activo = Usuario.objects.filter(id = id_usuario)
@@ -26,21 +27,25 @@ def index(request):
 
 def dashboard(request):
 	agrupaciones = Agrupacion.objects.all().order_by('-created_at')[:3]
+	campanas = Campana.objects.all().order_by('-created_at')[:3]
 	if 'idagrupacion' in request.session:
 		agrup = filtro_agrupacion(request.session['idagrupacion'])
 		context = {
 			'agrupaciones': agrupaciones,
+			'campanas': campanas,
 			'agrup': agrup
 		}
 	elif 'id' in request.session:
 		usuario = filtro_usuario(request.session['id'])
 		context = {
 			'agrupaciones': agrupaciones,
+			'campanas': campanas,
 			'usuario': usuario
 		}
 	else:
 		context = {
-			'agrupaciones':agrupaciones
+			'agrupaciones':agrupaciones,
+			'campanas': campanas,
 		}
 	return render(request, 'master/explorar.html', context)
 
@@ -67,3 +72,14 @@ def perfil(request, id):
 			'campanas': campanas
 		}
 	return render(request, 'master/perfil.html', context)
+
+def categorias(request, categoria):
+	agrupaciones_categoria = Agrupacion.objects.filter(categoria=categoria)
+	print(agrupaciones_categoria)
+	agrupa = agrupaciones_categoria[0]
+	print(agrupa.nombre)
+	context = {
+		'agrupa':agrupa,
+		'agrupaciones_categoria':agrupaciones_categoria
+	}
+	return render(request, 'master/categorias.html', context)
