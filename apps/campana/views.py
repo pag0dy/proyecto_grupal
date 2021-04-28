@@ -107,6 +107,7 @@ def agregar_aporte(request, id):
 def panel_control_agrupacion(request):
 	agrupacion = Agrupacion.objects.get(id=request.session['idagrupacion'])
 	form = RegistroAgrupaciones(instance=agrupacion)
+	campana_form = FormularioCampana()
 	diff = {}
 	for meta in agrupacion.campana_activa.all():
 		difference = meta.meta - meta.recaudacion
@@ -114,6 +115,7 @@ def panel_control_agrupacion(request):
 		diff.update(pairs)
 	context = {
 		'agrupacion': agrupacion,
+		'campana_form': campana_form,
 		'form': form,
 		'diff': diff
 	}

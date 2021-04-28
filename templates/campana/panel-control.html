@@ -59,5 +59,42 @@
     </div>
   </div>
 </div>
+
 <a href="#modal-edit" class="btn btn-warning " data-toggle="modal" data-target="#modal-edit">Editar datos agrupación</a>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="modal-crear-campana">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title secondary-font">Crear campaña</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          {% csrf_token %}
+          <table>
+            {{campana_form|crispy}}
+          </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#modal-crear-campana" class="btn btn-warning " data-toggle="modal" data-target="#modal-crear-campana">Editar datos agrupación</a>
+
 {% endblock %}
