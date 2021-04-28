@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .forms import FormularioCampana, FormularioAporte
-from .models import Campana, Agrupacion
+from .models import Campana, Agrupacion, Aporte
 import bcrypt
+from apps.registro_acceso.forms import RegistroAgrupaciones
 
 def campana(request):
 	return render(request, 'campana/dashboard_campana.html')
@@ -45,3 +46,36 @@ def agregar_aporte(request, id_campana):
 			'form' : FormularioAporte(),
 		}		
 		return render(request, 'campana/registro.html', context)
+
+
+def panel_control_agrupacion(request):
+	agrupacion = Agrupacion.objects.get(id=request.session['idagrupacion'])
+	form = RegistroAgrupaciones(instance=agrupacion)
+	diff = {}
+	for meta in agrupacion.campana_activa.all():
+		difference = meta.meta - meta.recaudacion
+		pairs = {meta.titulo : difference}
+		diff.update(pairs)
+	context = {
+		'agrupacion': agrupacion,
+		'form': form,
+		'diff': diff
+	}
+	return render(request, 'campana/panel-control.html', context )
+
+def panel_control_campana(request, ids):
+	campana = Campana.objects.get(id=ids)
+	context = { 
+		'campana': campana
+	}
+	return render(request, 'campana/panel-control-campana.html', context)
+
+def pago_aprobado(request):
+	campana = Campana.objects.get(id = request.POST['campana_id'])
+	aporte = Aporte.objects.get(id = request.POST['aporte_id'])
+	recaudacion_actual = campana.recaudacion
+	campana.recaudacion = recaudacion_actual + aporte.cantidad
+	campana.save()
+	aporte.aprobado = True
+	aporte.save()
+	return redirect('/panel_control_campana/' + str(campana.id))
