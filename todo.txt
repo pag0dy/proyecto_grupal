@@ -9,5 +9,4 @@ Pendientes:
 
 ERRORES A CORREGIR:
 1.- No me deja ingresar a la plataforma con los datos de las fundaciones creadas
-2.- No está funcionando la lógica de hacer un aporte
 
