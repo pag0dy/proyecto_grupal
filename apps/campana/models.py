@@ -8,6 +8,7 @@ class Campana(models.Model):
     agrupacion = models.ManyToManyField(Agrupacion, related_name='campana_activa')
     recaudacion = models.PositiveIntegerField(default=0)
     meta = models.PositiveIntegerField(default=0)
+    imagen = models.ImageField(upload_to='images/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

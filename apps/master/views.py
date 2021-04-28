@@ -25,23 +25,45 @@ def index(request):
 	return render(request, 'master/bienvenida.html')
 
 def dashboard(request):
-	agrup = filtro_agrupacion(request.session['idagrupacion'])
-	usuario = filtro_usuario(request.session['id'])
 	agrupaciones = Agrupacion.objects.all().order_by('-created_at')[:3]
-	print(agrupaciones)
-	context = {
-		'agrupaciones': agrupaciones,
-		'usuario': usuario
-	}
+	if 'idagrupacion' in request.session:
+		agrup = filtro_agrupacion(request.session['idagrupacion'])
+		context = {
+			'agrupaciones': agrupaciones,
+			'agrup': agrup
+		}
+	elif 'id' in request.session:
+		usuario = filtro_usuario(request.session['id'])
+		context = {
+			'agrupaciones': agrupaciones,
+			'usuario': usuario
+		}
+	else:
+		context = {
+			'agrupaciones':agrupaciones
+		}
 	return render(request, 'master/explorar.html', context)
 
 def perfil(request, id):
 	agrupacion = filtro_agrupacion(id)
-	usuario = filtro_usuario(request.session['id'])
-	agrup = filtro_agrupacion(request.session['idagrupacion'])
-	context = {
-		'agrup':agrup,
-		'usuario':usuario,
-		'agrupacion':agrupacion
-	}
+	campanas = agrupacion.campana_activa.all()
+	if 'idagrupacion' in request.session:
+		agrup = filtro_agrupacion(request.session['idagrupacion'])
+		context = {
+			'agrup':agrup,
+			'agrupacion':agrupacion,
+			'campanas': campanas
+		}	
+	elif 'id' in request.session:
+		usuario = filtro_usuario(request.session['id'])
+		context = {
+			'usuario':usuario,
+			'agrupacion':agrupacion,
+			'campanas': campanas
+		}
+	else: 
+		context = {
+			'agrupacion':agrupacion,
+			'campanas': campanas
+		}
 	return render(request, 'master/perfil.html', context)

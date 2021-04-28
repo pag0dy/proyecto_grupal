@@ -34,7 +34,7 @@ class Agrupacion(models.Model):
     rut = models.CharField(max_length=12)
     email = models.EmailField(max_length=100)
     descripcion = models.TextField(max_length=750)
-    password = models.CharField(max_length=80)
+    group_password = models.CharField(max_length=80)
     categoria = models.CharField(max_length=80, choices=choices)
     necesitamos = models.TextField(max_length=750, blank=True)
     contacto = models.CharField(max_length=100, blank=True)

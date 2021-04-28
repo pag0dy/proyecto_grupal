@@ -52,7 +52,7 @@ def registro(request):
 		return render(request, 'registro_acceso/registro.html', context)
 
 
-def registro_agrupacion(request, methods=['POST']):
+def registro_agrupacion(request):
 	form = RegistroAgrupaciones(request.POST)
 	print(request.POST)
 	if form.is_valid():
