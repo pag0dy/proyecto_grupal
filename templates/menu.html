@@ -18,9 +18,9 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categorías</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Animalista</a>
-            <a class="dropdown-item" href="#">Adulto Mayor</a>
-            <a class="dropdown-item" href="#">Situación de calle</a>
+            <a class="dropdown-item" href="{% url 'categorias' categoria='1' %}">Animalista</a>
+            <a class="dropdown-item" href="{% url 'categorias' categoria='2' %}">Adulto Mayor</a>
+            <a class="dropdown-item" href="{% url 'categorias' categoria='3' %}">Situación de calle</a>
         </li>
         {% if request.session.id or request.session.idagrupacion %}
         <li class="nav-item">

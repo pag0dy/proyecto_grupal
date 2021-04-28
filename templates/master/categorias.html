@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block encabezado %}
+{% endblock %}
+
+{% block menuVertical %}
+  {% include "menu.html" %}
+{% endblock %}
+
+{% block contenido %}
+<div class="row justify-content-center align-items-center mb-5">
+    <h1 class="main-font title-font">{{ agrupa.get_categoria_display }}</h1>
+    {% if agrupa.categoria == '1' %}
+        <img class="perfil-img" src="../static/img/noun_Pet Allowed.png" alt="animalista">
+    {% elif agrupa.categoria == '2' %}
+        <img class="perfil-img" src="../static/img/noun_Friend.png" alt="adultomayor">
+    {% elif agrupa.categoria == '3' %}
+        <img class="perfil-img" src="../static/img/noun_Home.png" alt="situacioncalle">
+    {% endif %}         
+    <hr class="my-4">
+</div>
+<div class="row justify-content-center align-items-center">
+    {% for agrupacion in agrupaciones_categoria %}
+    <div class="col">
+        <div class="card text-white bg-secondary" style="width: 18rem;">
+        <div class="card-header">
+            <p class="card-text">{{ agrupacion.get_categoria_display }}</p>
+        </div>
+            <div class="card-body">
+            <h5 class="card-title">{{  agrupacion.nombre }}</h5>
+            <p class="card-text">{{ agrupacion.descripcion }}</p>
+            <a href="{% url 'perfil' id=agrupacion.id %}" class="btn btn-info">Ver Perfil</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}        
+</div>
+{% endblock %}

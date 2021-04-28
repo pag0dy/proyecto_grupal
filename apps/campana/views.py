@@ -38,25 +38,33 @@ def filtro_usuario(id_usuario):
 
 def campana(request, id):
 	campana = filtro_campana(id)
+	porcentaje_recaudacion = campana.recaudacion / campana.meta
+	print(porcentaje_recaudacion)
 	agrup = campana.agrupacion.all()
 	if 'id' in request.session:
 		usuario = filtro_usuario(request.session['id'])
 		context = {
 			'campana':campana,
+			'porcentaje':porcentaje_recaudacion,
 			'usuario':usuario,
-			'agrup':agrup
+			'agrup':agrup,
+			'form' : FormularioAporte(),
 		}
 	elif 'idagrupacion' in request.session:
 		agrupacion = filtro_agrupacion(request.session['idagrupacion'])
 		context = {
 					'campana':campana,
+					'porcentaje':porcentaje_recaudacion,
 					'agrupacion':agrupacion,
-					'agrup':agrup
+					'agrup':agrup,
+					'form' : FormularioAporte(),
 				}
 	else: 
 		context = {
 					'campana':campana,
-					'agrup':agrup			
+					'porcentaje':porcentaje_recaudacion,
+					'agrup':agrup,
+					'form' : FormularioAporte(),			
 		}
 	return render(request, 'campana/dashboard_campana.html', context)
 
@@ -82,21 +90,16 @@ def agregar_campana(request):
 def agregar_aporte(request, id_campana):
 	if request.method == 'POST':
 		form = FormularioAporte(request.POST)
+		campana = filtro_campana(id_campana)
 		if form.is_valid():
 				nuevo_aporte = form.save(commit=False)
-				nuevo_aporte.campana = Campana.objects.get(id=id_campana)
+				nuevo_aporte.campana = campana
 				nuevo_aporte.usuario = Usuario.objects.get(id=request.session['id'])
 				nuevo_aporte.save()
-				return redirect('/campana')
+				return redirect('/campana/' + id_campana )
 		else:
-			context = {
-				'form': form
-			}
-			return render(request, 'campana/registro.html', context)
+			return redirect('/campana/' + id_campana )
 	else:
-		context = {
-			'form' : FormularioAporte(),
-		}		
 		return render(request, 'campana/registro.html', context)
 
 

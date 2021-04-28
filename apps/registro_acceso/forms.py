@@ -240,15 +240,10 @@ class RegistroAgrupaciones(forms.ModelForm):
         if len(password) < 8:
             raise forms.ValidationError(
                 {
-                    'password': 'La contraseña debe tener al menos 8 caracteres.'
+                    'group_password': 'La contraseña debe tener al menos 8 caracteres.'
                 }
             )
-        if len(password_confirm) < 10:
-            raise forms.ValidationError(
-                {
-                    'password': 'La contraseña debe tener al menos 8 caracteres.'
-                }
-            )
+
 
 
 # Formulario de ingreso agrupaciones
