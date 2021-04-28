@@ -5,6 +5,5 @@ Pendientes:
 2.- Template panel de control campaña (Michel) campana/admin_campana.html
 3.- Template de Crear Campaña y aporte (Agustín) campana/nueva_campana.html
 4.- Agregar gestionar mi agrupacion en menú desplegable (Pauli)
-5.- Agregar categorías en menú desplegable (Pauli)
 6.- Lógica para conectar campaña y aporte (Marita)
 9.- Verificar que todo el flujo funcione (Todos)
