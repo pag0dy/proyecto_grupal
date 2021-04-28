@@ -4,8 +4,9 @@ from .forms import RegistroAgrupaciones, RegistroUsuarios, IngresoAgrupaciones, 
 from .models import Usuario, Categoria, Agrupacion
 import bcrypt
 
+
 def filtro_usuario(id_usuario):
-    activo = Usuario.objects.filter(id = id_usuario)
+    activo = Usuario.objects.filter(id=id_usuario)
     if activo:
         usuario_activo = activo[0]
         return usuario_activo
@@ -14,8 +15,9 @@ def filtro_usuario(id_usuario):
         print(mensaje)
         return mensaje
 
+
 def filtro_agrupacion(id_agrupacion):
-    activo = Agrupacion.objects.filter(id = id_agrupacion)
+    activo = Agrupacion.objects.filter(id=id_agrupacion)
     if activo:
         agrupacion_activa = activo[0]
         return agrupacion_activa
@@ -24,12 +26,14 @@ def filtro_agrupacion(id_agrupacion):
         print(mensaje)
         return mensaje
 
+
 def registro(request):
 	if request.method == 'POST':
 		form = RegistroUsuarios(request.POST)
 		if form.is_valid():
 				nuevo_usuario = form.save(commit=False)
-				pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
+				pw_hash = bcrypt.hashpw(
+				    request.POST['password'].encode(), bcrypt.gensalt()).decode()
 				nuevo_usuario.password = pw_hash
 				nuevo_usuario.save()
 				request.session['id'] = Usuario.objects.last().id
@@ -42,17 +46,19 @@ def registro(request):
 			return render(request, 'registro_acceso/registro.html', context)
 	else:
 		context = {
-			'form' : RegistroUsuarios(),
+			'form': RegistroUsuarios(),
 			'group_form': RegistroAgrupaciones(),
-		}		
+		}
 		return render(request, 'registro_acceso/registro.html', context)
+
 
 def registro_agrupacion(request, methods=['POST']):
 	form = RegistroAgrupaciones(request.POST)
 	print(request.POST)
 	if form.is_valid():
 			nueva_agrupacion = form.save(commit=False)
-			pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
+			pw_hash = bcrypt.hashpw(
+			    request.POST['password'].encode(), bcrypt.gensalt()).decode()
 			nueva_agrupacion.password = pw_hash
 			nueva_agrupacion.save()
 			request.session['idagrupacion'] = Agrupacion.objects.last().id
@@ -61,7 +67,7 @@ def registro_agrupacion(request, methods=['POST']):
 	else:
 		context = {
 			'group_form': form,
-			'form' : RegistroUsuarios(),
+			'form': RegistroUsuarios(),
 		}
 		return render(request, 'registro_acceso/registro.html', context)
 
@@ -78,19 +84,20 @@ def acceso(request):
 				return redirect('/dashboard')
 		else:
 			context = {
-				'form' : form,
+				'form': form,
 				'group_form': IngresoAgrupaciones()
 			}
 
 			return render(request, 'registro_acceso/acceso.html', context)
-		
+
 	else:
 		context = {
-			'form' : IngresoUsuarios(),
+			'form': IngresoUsuarios(),
 			'group_form': IngresoAgrupaciones(),
 		}
 
 		return render(request, 'registro_acceso/acceso.html', context)
+
 
 def acceso_agrupacion(request):
 	if request.method == 'POST':
@@ -104,23 +111,22 @@ def acceso_agrupacion(request):
 				return redirect('/dashboard')
 		else:
 			context = {
-				'group_form' : form,
-				'form' : IngresoUsuarios(),
+				'group_form': form,
+				'form': IngresoUsuarios(),
 			}
 
 			return render(request, 'registro_acceso/acceso.html', context)
-		
+
 	else:
 		context = {
-			'form' : IngresoAgrupaciones(),
+			'form': IngresoAgrupaciones(),
 			'group_form': IngresoAgrupaciones(),
 		}
 
 		return render(request, 'registro_acceso/acceso.html', context)
 
+
 def logout(request):
-    logged_user = []
+    logged_user=[]
     request.session.clear()
     return redirect("/")
-
-

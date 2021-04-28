@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block contenido%}
+<h1>{{agrupacion.nombre}}</h1>
+<table class="table table-striped table-hover">
+  <tr>
+    <th>Campañas activas</th>
+    <th>Recaudación actual</th>
+    <th>Meta</th>
+    <th>Nos falta</th>
+  </tr>
+  {%for campana in agrupacion.campana_activa.all%}
+  <tr>
+    <td>
+      <a href="{% url 'panel_control_campana'  ids=campana.id %}"
+        >{{campana.titulo}}</a
+      >
+    </td>
+    <td>${{campana.recaudacion}}</td>
+    <td>${{campana.meta}}</td>
+    {% for key, value in diff.items%} {% if key == campana.titulo%}
+    <td>{{value}}</td>
+    {% endif%} {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+
+<div class="modal" tabindex="-1" role="dialog" id="modal-edit">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          {% csrf_token %}
+          <table>
+            {{form.as_table}}
+          </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<a href="#modal-edit" data-toggle="modal" data-target="#modal-edit">Editar datos agrupación</a>
+{% endblock %}
