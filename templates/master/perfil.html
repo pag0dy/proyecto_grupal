@@ -9,50 +9,35 @@
 {% endblock %}
 
 {% block contenido %}
-<div class="col d-flex">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-9">
-            <div class="jumbotron mt-4">
-                <h1 class="main-font title-font">{{ agrupacion.nombre }}</h1>
-                <p class="secondary-font gen-font">{{ agrupacion.descripcion }}</p>
-                <hr class="my-4">
-                <h3 class="main-font sub-title-font">Necesitamos:</h3>
-                <p class="secondary-font gen-font">{{ agrupacion.necesitamos }}</p>
-                <!-- <ul class="secondary-font small-font ml-5">
-                    <li>Alimento para perro</li>
-                    <li>Alimento para gatos</li>
-                    <li>Antiparasitario</li>
-                    <li>Útiles de aseo</li>
-                </ul> -->
-                <h3 class="main-font sub-title-font">Campañas:</h3>
-                <ul class="secondary-font small-font ml-5">
-                    
-                    {% if campanas %}
-                        
+<div class="row justify-content-center align-items-center">
+    <div class="col-8">
+        <div class="jumbotron mt-4">
+            <h1 class="main-font title-font">{{ agrupacion.nombre }}</h1>
+            <p class="secondary-font gen-font">{{ agrupacion.descripcion }}</p>
+            <hr class="my-4">
+            <h3 class="main-font sub-title-font">Necesitamos:</h3>
+            <p class="secondary-font gen-font">{{ agrupacion.necesitamos }}</p>
+            <h3 class="main-font sub-title-font">Campañas:</h3>
+            <ul class="secondary-font small-font ml-5">  
+                {% if campanas %}   
                     {% for campana in campanas %}
                     <li><a href="{% url 'campana' id=campana.id %}">{{ campana.titulo }}</a></li>                        
                     {% endfor %}
-                    {% endif %}
-                        
-
-
-                        
-
-                </ul>
-                <p class="secondary-font small-font">Si te interesa formar parte de nuestra agrupación o hacer alguna donación, contáctanos!</p>
-                <a href="{{ agrupacion.contacto }}">{{ agrupacion.contacto }}</a>
-            </div>
-            <a class="btn-big-dark bg-purple my-5" href="#" role="button">Quiero ayudar!</a>
+                {% endif %}
+            </ul>
+            <p class="secondary-font small-font">Si te interesa formar parte de nuestra agrupación o hacer alguna donación, contáctanos!</p>
+            <a href="{{ agrupacion.contacto }}">{{ agrupacion.contacto }}</a>
         </div>
-        <div class="col">
-            {% if agrupacion.categoria == '1' %}
-                <img class="perfil-img" src="../static/img/noun_Pet Allowed.png" alt="animalista">
-            {% elif agrupacion.categoria == '2' %}
-                <img class="perfil-img" src="../static/img/noun_Friend.png" alt="adultomayor">
-            {% elif agrupacion.categoria == '3' %}
-            <img class="perfil-img" src="../static/img/noun_Home.png" alt="situacioncalle">
-            {% endif %}         
-        </div>
+        <a class="btn-big-dark bg-purple my-5" href="#" role="button">Quiero ayudar!</a>
+    </div>
+    <div class="col-3">
+        {% if agrupacion.categoria == '1' %}
+            <img class="perfil-img" src="../static/img/noun_Pet Allowed.png" alt="animalista">
+        {% elif agrupacion.categoria == '2' %}
+            <img class="perfil-img" src="../static/img/noun_Friend.png" alt="adultomayor">
+        {% elif agrupacion.categoria == '3' %}
+        <img class="perfil-img" src="../static/img/noun_Home.png" alt="situacioncalle">
+        {% endif %}         
     </div>
 </div>
 {% endblock %}

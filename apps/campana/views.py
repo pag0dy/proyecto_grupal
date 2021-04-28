@@ -87,18 +87,19 @@ def agregar_campana(request):
 		}		
 		return render(request, 'campana/registro.html', context)
 
-def agregar_aporte(request, id_campana):
+def agregar_aporte(request, id):
+	print(id)
 	if request.method == 'POST':
 		form = FormularioAporte(request.POST)
-		campana = filtro_campana(id_campana)
+		campana = filtro_campana(id)
 		if form.is_valid():
 				nuevo_aporte = form.save(commit=False)
 				nuevo_aporte.campana = campana
 				nuevo_aporte.usuario = Usuario.objects.get(id=request.session['id'])
 				nuevo_aporte.save()
-				return redirect('/campana/' + id_campana )
+				return redirect('/campana/' + str(id) )
 		else:
-			return redirect('/campana/' + id_campana )
+			return redirect('/campana/' + str(id) )
 	else:
 		return render(request, 'campana/registro.html', context)
 

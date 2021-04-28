@@ -1,5 +1,5 @@
-<aside class="col-1 position-fixed">
-    <ul class="nav flex-column">
+<aside class="position-fixed">
+    <ul class="nav flex-column ml-3">
         <li class="nav-item">
             <a class="nav-link active" href="/"><img class="menu-img" src="/static/img/Boon_logo_heart.png" alt="support"></a>
         </li>
@@ -9,8 +9,11 @@
         </li> 
         {% elif request.session.idagrupacion %}   
         <li class="nav-item">
-          <p class="lead">Hola, {{ agrupacion.nombre }}</p>
+          <p class="lead">{{ agrup.nombre }}</p>
         </li> 
+        <li class="nav-item">
+          <a href="{% url 'panel_control_agrupacion' %}">Panel de control</a>
+        </li>
         {% endif %}       
         <li class="nav-item">
           <a class="nav-link active" href="{% url 'dashboard' %}">Inicio</a>
