@@ -133,6 +133,10 @@ aside {
     height:15vw;
 }
 
+.texto-sombra {
+    text-shadow: 1px 1px 3px grey;
+}
+
 /* .row {
     border: 1px solid red;
 } */

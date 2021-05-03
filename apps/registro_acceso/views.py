@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-from .forms import RegistroAgrupaciones, RegistroUsuarios, IngresoAgrupaciones, IngresoUsuarios
+from .forms import RegistroAgrupaciones, RegistroUsuarios, IngresoAgrupaciones, IngresoUsuarios, EditarAgrupacion
 from .models import Usuario, Categoria, Agrupacion
+from ..campana.forms import FormularioCampana
 import bcrypt
 
 
@@ -41,35 +42,39 @@ def registro(request):
 		else:
 			context = {
 				'form': form,
-				'group_form': RegistroAgrupaciones(),
 			}
 			return render(request, 'registro_acceso/registro.html', context)
 	else:
 		context = {
 			'form': RegistroUsuarios(),
-			'group_form': RegistroAgrupaciones(),
 		}
 		return render(request, 'registro_acceso/registro.html', context)
 
 
 def registro_agrupacion(request):
-	form = RegistroAgrupaciones(request.POST)
-	print(request.POST)
-	if form.is_valid():
+	if request.method == 'POST':
+		form = RegistroAgrupaciones(request.POST)
+		print(request.POST)
+		if form.is_valid():
 			nueva_agrupacion = form.save(commit=False)
 			pw_hash = bcrypt.hashpw(
-			    request.POST['group_password'].encode(), bcrypt.gensalt()).decode()
-			nueva_agrupacion.group_password = pw_hash
+				request.POST['password'].encode(), bcrypt.gensalt()).decode()
+			nueva_agrupacion.password = pw_hash
 			nueva_agrupacion.save()
 			request.session['idagrupacion'] = Agrupacion.objects.last().id
 			print(request.session['idagrupacion'])
 			return redirect('/dashboard')
+		else:
+			context = {
+				'group_form': form,
+
+			}
+			return render(request, 'registro_acceso/registro_agrupacion.html', context)
 	else:
-		context = {
-			'group_form': form,
-			'form': RegistroUsuarios(),
-		}
-		return render(request, 'registro_acceso/registro.html', context)
+			context = {
+				'group_form': RegistroAgrupaciones(),
+			}
+			return render(request, 'registro_acceso/registro_agrupacion.html', context)
 
 
 def acceso(request):
@@ -85,7 +90,6 @@ def acceso(request):
 		else:
 			context = {
 				'form': form,
-				'group_form': IngresoAgrupaciones()
 			}
 
 			return render(request, 'registro_acceso/acceso.html', context)
@@ -93,7 +97,6 @@ def acceso(request):
 	else:
 		context = {
 			'form': IngresoUsuarios(),
-			'group_form': IngresoAgrupaciones(),
 		}
 
 		return render(request, 'registro_acceso/acceso.html', context)
@@ -101,32 +104,57 @@ def acceso(request):
 
 def acceso_agrupacion(request):
 	if request.method == 'POST':
-		print(request.POST)
 		form = IngresoAgrupaciones(request.POST)
+		print(form.is_valid())
 		if form.is_valid():
-			agrupacion = Agrupacion.objects.filter(email=request.POST['email'])
-			logged_agrupacion = agrupacion[0]
-			if bcrypt.checkpw(request.POST['password'].encode(), logged_agrupacion.password.encode()):
-				request.session['idagrupacion'] = logged_agrupacion.id
-				return redirect('/dashboard')
+			logged_agrupacion = Agrupacion.objects.get(email = request.POST['email'])
+			request.session['idagrupacion'] = logged_agrupacion.id
+			return redirect('/dashboard')
 		else:
 			context = {
 				'group_form': form,
-				'form': IngresoUsuarios(),
 			}
 
-			return render(request, 'registro_acceso/acceso.html', context)
+			return render(request, 'registro_acceso/acceso_agrupacion.html', context)
 
 	else:
 		context = {
-			'form': IngresoAgrupaciones(),
 			'group_form': IngresoAgrupaciones(),
 		}
 
-		return render(request, 'registro_acceso/acceso.html', context)
+		return render(request, 'registro_acceso/acceso_agrupacion.html', context)
 
 
 def logout(request):
     logged_user=[]
     request.session.clear()
     return redirect("/")
+
+def editar_agrupacion(request):
+	if request.method == 'POST':
+		form = EditarAgrupacion()
+		print(form.is_valid())
+		if form.is_valid():
+			agrupacion = filtro_agrupacion(request.POST['id_agrupacion'])
+			agrupacion.nombre = request.POST['nombre']
+			print(agrupacion.nombre)
+			agrupacion.rut = request.POST['rut']
+			print(agrupacion.rut)
+			agrupacion.email = request.POST['email']
+			print(agrupacion.email)
+			agrupacion.descripcion = request.POST['descripcion']
+			print(agrupacion.descripcion)
+			agrupacion.categoria = request.POST['categoria']
+			print(agrupacion.categoria)
+			agrupacion.necesitamos = request.POST['necesitamos']
+			print(agrupacion.necesitamos)
+			agrupacion.contacto = request.POST['contacto']
+			print(agrupacion.contacto)
+			agrupacion.save()
+			return redirect('campana/panel_control.html')
+		else:
+			context = {
+				'form':form,
+				'campana_form':FormularioCampana()
+			}
+			return render(request, 'campana/panel-control.html', context)

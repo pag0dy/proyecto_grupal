@@ -1,33 +1,33 @@
 <aside class="position-fixed">
-    <ul class="nav flex-column ml-3">
-        <li class="nav-item">
+    <ul class="nav text-light flex-column justify-content-center ml-4">
+        <li class="nav-item mt-2">
             <a class="nav-link active" href="/"><img class="menu-img" src="/static/img/Boon_logo_heart.png" alt="support"></a>
         </li>
         {% if request.session.id %}
         <li class="nav-item">
-          <p class="lead">Hola, {{ usuario.nombre }}</p>
+          <p class="main-font mt-2">Hola, {{ usuario.nombre }}</p>
         </li> 
         {% elif request.session.idagrupacion %}   
         <li class="nav-item">
-          <p class="lead">{{ agrup.nombre }}</p>
+          <p class="main-font font-weight-bold mt-2">{{ agrup.nombre }}</p>
         </li> 
-        <li class="nav-item">
-          <a href="{% url 'panel_control_agrupacion' %}">Panel de control</a>
+        <li class="nav-item mt-2">
+          <a class="btn btn-warning" href="{% url 'panel_control_agrupacion' %}">Panel de control</a>
         </li>
         {% endif %}       
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'dashboard' %}">Inicio</a>
+          <a class="nav-link text-warning active" href="{% url 'dashboard' %}">Inicio</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categorías</a>
-          <div class="dropdown-menu">
+          <a class="nav-link dropdown-toggle text-warning" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categorías</a>
+          <div class="dropdown-menu bg-warning">
             <a class="dropdown-item" href="{% url 'categorias' categoria='1' %}">Animalista</a>
             <a class="dropdown-item" href="{% url 'categorias' categoria='2' %}">Adulto Mayor</a>
             <a class="dropdown-item" href="{% url 'categorias' categoria='3' %}">Situación de calle</a>
         </li>
         {% if request.session.id or request.session.idagrupacion %}
         <li class="nav-item">
-          <a href="{% url 'logout' %}" class="nav-link">Salir</a>
+          <a href="{% url 'logout' %}" class="nav-link text-warning">Salir</a>
         </li>     
         {% endif %}
       </ul>

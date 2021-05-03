@@ -43,6 +43,15 @@
                 <button class="btn btn-info bg-purple my-5" id="toggle-btn">Quiero Ayudar!</button>               
             {% endif %}
             <div class="d-inline">
+                <div>            
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tag }}"{% endif %}>{{ message }}</li>                         
+                            {% endfor %}
+                        </ul>
+                    {% endif %}                   
+                </div>
                 <div class="position-fixed" id="toggle1" style="visibility: hidden;">
                     <form action="{% url 'agregar_aporte' id=campana.id %}" method="post">
                         {% csrf_token %}
