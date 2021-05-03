@@ -5,29 +5,30 @@
 {% load crispy_forms_tags %}
 {% block contenido%}
 <h1 class="main-font big-font mt-5">{{agrupacion.nombre}}</h1>
-<table class="table table-striped table-hover">
-  <tr>
-    <th>Campañas activas</th>
-    <th>Recaudación actual</th>
-    <th>Meta</th>
-    <th>Nos falta</th>
-  </tr>
-  {%for campana in agrupacion.campana_activa.all%}
-  <tr>
-    <td>
-      <a href="{% url 'panel_control_campana'  ids=campana.id %}"
-        >{{campana.titulo}}</a
-      >
-    </td>
-    <td>${{campana.recaudacion}}</td>
-    <td>${{campana.meta}}</td>
-    {% for key, value in diff.items%} {% if key == campana.titulo%}
-    <td>{{value}}</td>
-    {% endif%} {% endfor %}
-  </tr>
-  {% endfor %}
+<table class="table secondary-font table-striped table-hover table-info">
+  <thead class="thead-dark">
+    <tr>
+      <th>Campañas activas</th>
+      <th>Recaudación actual</th>
+      <th>Meta</th>
+      <th>Nos falta</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for campana in agrupacion.campana_activa.all%}
+    <tr>
+      <td>
+        <a href="{% url 'panel_control_campana'  ids=campana.id %}">{{campana.titulo}}</a>
+      </td>
+      <td>${{campana.recaudacion}}</td>
+      <td>${{campana.meta}}</td>
+      {% for key, value in diff.items%} {% if key == campana.titulo%}
+      <td>{{value}}</td>
+      {% endif%} {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
-
 <div class="modal" tabindex="-1" role="dialog" id="modal-edit">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -43,6 +44,7 @@
         </button>
       </div>
       <div class="modal-body">
+
         <form action="{% url 'editar' ids=agrupacion.id %}">
           {% csrf_token %}
           <table>
@@ -81,14 +83,12 @@
         <form action="{% url 'agregar_campana' %}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <table>
-            {{campana_form|crispy}}
-            
+            {{campana_form|crispy}}           
           <button type="submit" class="btn btn-primary">Crear campaña</button>
           </table>
         </form>
       </div>
       <div class="modal-footer">
-
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Cerrar
         </button>

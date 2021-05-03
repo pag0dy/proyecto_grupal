@@ -7,8 +7,24 @@
 
 {% block contenido %}
     <div class="row my-5 d-flex flex-row-reverse">
-        <a href="{% url 'acceso' %}" class="btn-big-dark bg-purple mr-3">Ingresa a tu cuenta</a>
-        <a href="{% url 'registro' %}" class="btn-big-dark bg-purple mr-3">Registrate</a>
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Ingresa a tu cuenta
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{% url 'acceso' %}">Usuario</a>
+              <a class="dropdown-item" href="{% url 'acceso_agrupacion' %}">Agrupación</a>
+            </div>
+        </div>
+        <div class="dropdown mx-3">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Regístrate
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{% url 'registro' %}">Usuario</a>
+              <a class="dropdown-item" href="{% url 'registro_agrupacion' %}">Agrupación</a>
+            </div>
+        </div>
     </div>
     <div class="row d-flex flex-row my-5">
         <div class="col">

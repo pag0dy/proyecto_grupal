@@ -98,7 +98,7 @@ class RegistroUsuarios(forms.ModelForm):
                     'password': 'La contraseña debe tener al menos 8 caracteres.'
                 }
             )
-        if len(password_confirm) < 10:
+        if len(password_confirm) < 8:
             raise forms.ValidationError(
                 {
                     'password': 'La contraseña debe tener al menos 8 caracteres.'
@@ -165,7 +165,7 @@ class RegistroAgrupaciones(forms.ModelForm):
             'email',
             'categoria',
             'descripcion',
-            'group_password',
+            'password',
             'necesitamos',
             'contacto'
         ]
@@ -175,12 +175,12 @@ class RegistroAgrupaciones(forms.ModelForm):
             'email': 'Correo electrónico',
             'categoria': 'Categoría',
             'descripcion': 'Descripción',
-            'group_password': 'Contraseña',
+            'password': 'Contraseña',
             'necesitamos': 'Necesitamos',
             'contacto': 'Contacto'
         }
         widgets = {
-            'group_password': forms.TextInput(attrs={'type': 'password'}),
+            'password': forms.TextInput(attrs={'type': 'password'}),
             'descripcion': forms.TextInput(attrs={'cols':5,'rows':10}),
             'necesitamos': forms.TextInput(attrs={'cols':5,'rows':10})
         }
@@ -229,7 +229,7 @@ class RegistroAgrupaciones(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(RegistroAgrupaciones, self).clean()
-        password = cleaned_data.get('group_password')
+        password = cleaned_data.get('password')
         password_confirm = cleaned_data.get('password_confirm')
         if password != password_confirm:
             raise forms.ValidationError(
@@ -240,7 +240,7 @@ class RegistroAgrupaciones(forms.ModelForm):
         if len(password) < 8:
             raise forms.ValidationError(
                 {
-                    'group_password': 'La contraseña debe tener al menos 8 caracteres.'
+                    'password': 'La contraseña debe tener al menos 8 caracteres.'
                 }
             )
 
@@ -253,22 +253,22 @@ class IngresoAgrupaciones(forms.ModelForm):
         model = Agrupacion
         fields = [
             'email',
-            'group_password',
+            'password',
         ]
         label = {
-            'group_password':'Contraseña'
+            'password':'Contraseña'
         }
         widgets = {
-            'group_password': forms.TextInput(attrs={'type': 'password'})
+            'password': forms.TextInput(attrs={'type': 'password'})
         }
 
 
-# validaciones formulario ingreso usuario
+# validaciones formulario ingreso agrupacion
 
     def clean(self):
         cleaned_data = super(IngresoAgrupaciones, self).clean()
         email = cleaned_data.get('email')
-        password = cleaned_data.get('group_password')
+        password = cleaned_data.get('password')
         user = Agrupacion.objects.filter(email=email)
         if not user:
             raise forms.ValidationError(
@@ -291,6 +291,65 @@ class IngresoAgrupaciones(forms.ModelForm):
             )
         return cleaned_data
 
+class EditarAgrupacion(forms.ModelForm):
+    class Meta:
+        model = Agrupacion
+        exclude = ['password']
+        
+        labels = {
+            'nombre': 'Nombre',
+            'rut': 'RUT',
+            'email': 'Correo electrónico',
+            'categoria': 'Categoría',
+            'descripcion': 'Descripción',
+            'necesitamos': 'Necesitamos',
+            'contacto': 'Contacto'
+        }
+        widgets = {
+            'descripcion': forms.TextInput(attrs={'cols':5,'rows':10}),
+            'necesitamos': forms.TextInput(attrs={'cols':5,'rows':10})
+        }
+
+# Validaciones edición agrupaciones
+
+    def clean_nombre(self):
+        nombre = self.cleaned_data.get('nombre')
+        if not valid_names(nombre):
+            raise forms.ValidationError('Ingresa un nombre válido.')
+        if len(nombre) < 3:
+            raise forms.ValidationError(
+                'El nombre debe tener al menos 3 caracteres.'
+            )
+        return nombre
+
+    def clean_rut(self):
+        rut = self.cleaned_data.get('rut')
+        if not valid_rut(rut):  # Regex para formato 12345678-9
+            raise forms.ValidationError(
+                'Ingresa un RUT válido.'
+            )
+        if len(rut) < 10:
+            raise forms.ValidationError(
+                'El rut debe tener 10 caracteres incluyendo el guión.'
+            )
+        return rut
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        user = Agrupacion.objects.filter(email=email)
+        if not valid_email(email):
+            raise forms.ValidationError(
+                'Ingresa un correo válido.'
+            )
+        if user:
+            raise forms.ValidationError(
+                'El correo ya está en uso.'
+            )
+        if len(email) < 10:
+            raise forms.ValidationError(
+                'El correo debe tener al menos 10 caracteres.'
+            )
+        return email
 
 # Funciones REGEX
 

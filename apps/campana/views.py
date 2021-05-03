@@ -3,6 +3,7 @@ from django.contrib import messages
 from .forms import FormularioCampana, FormularioAporte
 from .models import Campana, Agrupacion, Aporte
 from ..registro_acceso.models import Agrupacion, Usuario
+from ..registro_acceso.forms import EditarAgrupacion
 import bcrypt
 from apps.registro_acceso.forms import RegistroAgrupaciones, RegistroAgrupacionesEdit
 
@@ -72,7 +73,7 @@ def agregar_campana(request):
 	if request.method == 'POST':
 		form = FormularioCampana(request.POST, request.FILES)
 		if form.is_valid():
-				nueva_campana = form.save(commit=False)
+				nueva_campana = form.save()
 				nueva_campana.agrupacion = Agrupacion.objects.get(id=request.session['idagrupacion'])
 				nueva_campana.save()
 				return redirect('/campana' + str(nueva_campana.id))
@@ -99,6 +100,8 @@ def agregar_aporte(request, id):
 				nuevo_aporte.campana = campana
 				nuevo_aporte.usuario = Usuario.objects.get(id=request.session['id'])
 				nuevo_aporte.save()
+				message = "¡Muchas gracias! Tu aporte será revisado por la organización y una vez que se apruebe, se reflejará en el monto recaudado."
+				messages.success(request, message)
 				return redirect('/campana/' + str(id) )
 		else:
 			return redirect('/campana/' + str(id) )
@@ -108,7 +111,9 @@ def agregar_aporte(request, id):
 
 def panel_control_agrupacion(request):
 	agrupacion = Agrupacion.objects.get(id=request.session['idagrupacion'])
+
 	form = RegistroAgrupacionesEdit(instance=agrupacion)
+
 	campana_form = FormularioCampana()
 	diff = {}
 	for meta in agrupacion.campana_activa.all():
@@ -141,7 +146,6 @@ def pago_aprobado(request):
 	return redirect('/panel_control_campana/' + str(campana.id))
 
 
-
 def editar(request, ids):
 	agrupacion = Agrupacion.objects.get(id=ids)
 	form = RegistroAgrupacionesEdit()
@@ -152,3 +156,4 @@ def editar(request, ids):
 		agrupacion.necesitamos= request.POST['necesitamos']
 		agrupacion.save()
 	return redirect ('/panel_control_agrupacion')
+
