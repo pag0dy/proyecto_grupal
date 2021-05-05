@@ -368,3 +368,57 @@ def valid_email(email):
         r'^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.]+\.[a-zA-Z]{2,3}$'
     )
     return REGEX_EMAIL.match(email)
+
+# Formulario edicion agrupaciones
+
+class RegistroAgrupacionesEdit(forms.ModelForm):
+
+    class Meta:
+        model = Agrupacion
+        fields = [
+            'nombre',
+            'email',
+            'descripcion',
+            'necesitamos',
+        ]
+        labels = {
+            'nombre': 'Nombre',
+            'email': 'Correo electrónico',
+            'descripcion': 'Descripción',
+            'necesitamos': 'Necesitamos',
+        }
+        widgets = {
+            'descripcion': forms.TextInput(attrs={'cols':5,'rows':10}),
+            'necesitamos': forms.TextInput(attrs={'cols':5,'rows':10})
+        }
+
+
+# Validaciones registro agrupaciones
+
+    def clean_nombre(self):
+        nombre = self.cleaned_data.get('nombre')
+        if not valid_names(nombre):
+            raise forms.ValidationError('Ingresa un nombre válido.')
+        if len(nombre) < 3:
+            raise forms.ValidationError(
+                'El nombre debe tener al menos 3 caracteres.'
+            )
+        return nombre
+
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        user = Agrupacion.objects.filter(email=email)
+        if not valid_email(email):
+            raise forms.ValidationError(
+                'Ingresa un correo válido.'
+            )
+        if user:
+            raise forms.ValidationError(
+                'El correo ya está en uso.'
+            )
+        if len(email) < 10:
+            raise forms.ValidationError(
+                'El correo debe tener al menos 10 caracteres.'
+            )
+        return email
