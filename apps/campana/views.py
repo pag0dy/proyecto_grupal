@@ -72,17 +72,29 @@ def campana(request, id):
 def agregar_campana(request):
 	if request.method == 'POST':
 		form = FormularioCampana(request.POST, request.FILES)
+		print(form.is_valid())
 		if form.is_valid():
-				nueva_campana = form.save()
-				nueva_campana.agrupacion = Agrupacion.objects.get(id=request.session['idagrupacion'])
-				nueva_campana.save()
-				return redirect('/campana' + str(nueva_campana.id))
+			nueva_campana = form.save()
+			grup = Agrupacion.objects.get(id=request.session['idagrupacion'])
+			nueva_campana.agrupacion.add(grup)
+			nueva_campana.save()
+			return redirect('/campana/' + str(nueva_campana.id))
 		else:
-			context = {
-				'campana_form': form,
-				'form': RegistroAgrupaciones()
-			}
-			return render(request, 'campana/panel-control.html', context)
+			agrupacion = Agrupacion.objects.get(id=request.session['idagrupacion'])
+			diff = {}
+			message = "Hubo un error al tratar de crear la campaña."
+			messages.error(request, message)
+			for meta in agrupacion.campana_activa.all():
+				difference = meta.meta - meta.recaudacion
+				pairs = {meta.titulo : difference}
+				diff.update(pairs)
+				context = {
+					'agrupacion': agrupacion,
+					'campana_form': form,
+					'form': RegistroAgrupaciones(),
+					'diff': diff
+				}
+				return render(request, 'campana/panel-control.html', context)
 	else:
 		context = {
 			'campana_form' : FormularioCampana(),

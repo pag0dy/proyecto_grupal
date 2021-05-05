@@ -18,29 +18,9 @@ class FormularioCampana(forms.ModelForm):
             'meta': 'Meta'
         }
         widgets = {
-            'descripcion': forms.Textarea(attrs={'cols': '40', 'rows': '10'})
+            'descripcion': forms.Textarea(attrs={'cols': '40', 'rows': '10'}),
+            'fecha_limite': forms.DateInput(attrs = {'type': 'date'}),
         }
-
-    def clean_titulo(self):
-        titulo = self.cleaned_data.get('titulo')
-        if len(titulo) < 4:
-            raise forms.ValidationError(
-                'El titulo de la campaña debe constar al menos de 3 caracteres.'
-                )
-            return titulo
-        
-    # def clean_descripcion(self):
-    #     descripcion = self.cleanded_data.get('descripcion')
-    #     if len(descripcion) < 50:
-    #         raise forms.ValidationError(
-    #             'Por favor, detalla los aspectos generales de tu campaña.'
-    #             )
-    #         return descripcion
-
-    def clean(self):
-        cleaned_data = super(FormularioCampana, self).clean()
-        return cleaned_data
-
 
 class FormularioAporte(forms.ModelForm):
     class Meta:
