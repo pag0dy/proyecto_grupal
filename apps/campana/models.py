@@ -1,9 +1,10 @@
 from django.db import models
+from django.core.validators import MinLengthValidator, RegexValidator, validate_slug, EmailValidator
 from ..registro_acceso.models import *
 
 class Campana(models.Model):
-    titulo = models.CharField(max_length=100)
-    descripcion = models.TextField(max_length=750)
+    titulo = models.CharField(max_length=100, validators = [MinLengthValidator(limit_value = 2, message = 'El título debe tener más de dos caracteres')])
+    descripcion = models.TextField(max_length=750, validators = [MinLengthValidator(limit_value = 50, message = 'Ingresa una descripción de al menos 50 caracteres de la campaña')])
     fecha_limite = models.DateTimeField(blank=True, null=True)
     agrupacion = models.ManyToManyField(Agrupacion, related_name='campana_activa')
     recaudacion = models.PositiveIntegerField(default=0)

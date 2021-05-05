@@ -61,42 +61,28 @@
     </div>
   </div>
 </div>
-
 <a href="#modal-edit" class="btn btn-warning " data-toggle="modal" data-target="#modal-edit">Editar datos agrupación</a>
-
-
-<div class="modal" tabindex="-1" role="dialog" id="modal-crear-campana">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title secondary-font">Crear campaña</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="{% url 'agregar_campana' %}" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <table>
-            {{campana_form|crispy}}           
-          <button type="submit" class="btn btn-primary">Crear campaña</button>
-          </table>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Cerrar
-        </button>
-      </div>
-    </div>
-  </div>
+<button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Crear Campaña
+</button>
+<div class="collapse mb-5" id="collapseExample">
+  <p class="secondary-font sub-title-font mt-3">Crea una nueva campaña</p>
+  <form action="{% url 'agregar_campana' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+      {{campana_form|crispy}}           
+    </table>
+    <button type="submit" class="btn btn-info">Crear campaña</button>
+  </form>
 </div>
-
-<a href="#modal-crear-campana" class="btn btn-warning " data-toggle="modal" data-target="#modal-crear-campana">Crear campaña</a>
+<div>            
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tag }}"{% endif %}>{{ message }}</li>                         
+          {% endfor %}
+      </ul>
+  {% endif %}                   
+</div>
 
 {% endblock %}
